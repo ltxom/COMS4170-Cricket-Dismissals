@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static', filename='homepage.css')}}">
+
+<div class="page-container">
+    <h1 class="heading">Welcome to Cricket World</h1>
+    <p class="subheading">Dive into the world of cricket, one step at a time.</p>
+    <a href="overview.html" class="overview-button">Cricket Overview</a>
+
+</div>
+
+{% endblock %}

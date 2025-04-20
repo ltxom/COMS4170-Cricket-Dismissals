@@ -35,3 +35,8 @@
     color: white;
     background-color: #003ecc;
 }
+
+#quiz-dismissals .row,
+#quiz-descriptors .row {
+    margin-bottom: 1.5rem; /* Adds spacing between rows */
+}

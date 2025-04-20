@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <script type="text/javascript" src="{{ url_for('static', filename = 'quiz.js') }}"></script>
+
+    <script>
+        let content = {{content|tojson}} 
+    </script>
+    <div class="row" >
+        <div class="col-12 centered">
+            <h1>Cricket Quiz</h1>
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-12 centered">
+            <h2>Test your knowledge</h2>
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-12 centered">
+            <h3>Drag the correct answer to the box</h3>
+        </div>
+    </div>
+
+
+    <div class="row" id="">
+        <div class="col-3" id="quiz-dismissals">
+            
+        </div>
+        <div class="col-3">
+        </div>
+        <div class="col-6" id="quiz-descriptors">
+
+        </div>
+    </div>
+
+
+    <div id="records">
+        <!--New records go here-->
+    </div>
+
+       
+       
+       
+       
+
+
+
+
+
+{% endblock %}
+

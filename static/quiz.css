@@ -1,0 +1,81 @@
+.page-container {    padding: 2rem;    font-family: 'Poppins', sans-serif;    display: flex;    flex-direction: column;    align-items: center;    text-align: center;    color: #333;}.quiz-heading {    font-size: 2.5rem;    margin-bottom: 1rem;    color: #144aff;    font-weight: bold;}.quiz-subheading {    font-size: 1.25rem;    color: #555;    margin-bottom: 2rem;}.quiz-question {    font-size: 1.5rem;    margin-bottom: 1.5rem;    color: #333;    font-weight: 500;}.quiz-options {    display: flex;    flex-direction: column;    gap: 1rem;    margin-bottom: 2rem;}.quiz-option {    display: inline-block;    text-decoration: none;    background-color: #f0f0f0;    color: #333;    padding: 0.75rem 1.5rem;    border-radius: 8px;    font-size: 1.2rem;    text-align: center;    cursor: pointer;    transition: background-color 0.3s ease, color 0.3s ease;}.quiz-option:hover {    background-color: #144aff;    color: white;}.dismissal {    padding: 0.75rem 1.5rem;    background-color: #f0f0f0;    border: 2px solid #144aff;    border-radius: 12px;    cursor: move;    margin-bottom: 0.5rem;    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);    font-size: 1.1rem;    font-weight: 500;    text-align: center;    transition: background-color 0.3s ease, transform 0.2s ease;}.dismissal:hover {    background-color: #e6f0ff;    transform: scale(1.05);}
+
+.droppable-area {
+    min-height: 4rem;
+    border: 3px dashed #144aff;
+    border-radius: 12px;
+    padding: 1rem;
+    background-color: #fafafa;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.droppable-area:hover {
+    background-color: #e6f0ff;
+}
+
+.submit-button {
+    display: inline-block;
+    text-decoration: none;
+    background-color: #144aff;
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submit-button:hover {
+    background-color: #003ecc;
+    transform: scale(1.05);
+}
+
+.nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.nav-buttons button {
+    background-color: #144aff;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.nav-buttons button:hover {
+    background-color: #0e3fdc;
+    transform: scale(1.05);
+}
+
+.nav-buttons button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.progress {
+    height: 6px;
+    background-color: #ddd;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #144aff;
+    transition: width 0.3s ease;
+}
+
+.row {
+    margin-bottom: 1.5rem; /* Adds spacing between rows */
+}

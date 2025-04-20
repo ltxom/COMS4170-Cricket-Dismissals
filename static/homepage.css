@@ -40,3 +40,22 @@
 #quiz-descriptors .row {
     margin-bottom: 1.5rem; /* Adds spacing between rows */
 }
+
+.dismissal {
+    padding: 0.5rem 1rem;
+    background-color: #f0f0f0;
+    border: 2px solid #144aff; /* Updated border color */
+    border-radius: 8px;
+    cursor: move;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow */
+}
+
+.droppable-area {
+    min-height: 3rem;
+    border: 3px dashed #144aff; /* Updated border style and color */
+    border-radius: 8px;
+    padding: 0.5rem;
+    background-color: #fafafa;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow */
+}

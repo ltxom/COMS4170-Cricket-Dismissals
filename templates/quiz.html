@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+    <script type="text/javascript" src="{{ url_for('static', filename = 'quiz.js') }}"></script>
+
+    <script>
+        let content = {{content|tojson}} 
+    </script>
+    <div class="row" id="submission">
+        <div class="col-12 centered">
+            <h1>Cricket Quiz</h1>
+        </div>
+    </div>
+    <div class="row" id="submission">
+        <div class="col-12 centered">
+            <h2>Test your knowledge</h2>
+        </div>
+    </div>
+    <div class="row" id="submission">
+        <div class="col-12 centered">
+            <h3>Drag the correct answer to the box</h3>
+        </div>
+    </div>
+
+
+    <div class="row" id="submission">
+        <div class="col-md-3">
+            Log your paper sales:
+        </div>
+        <div class="col-md-3">
+            <input type="text" placeholder="client" id="client">
+        </div>
+        <div class="col-md-3">
+            <input type="text" placeholder="# reams" id="reams">
+        </div>
+        <div class="col-md-3">
+            <button id="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+    <div id="records">
+        <!--New records go here-->
+    </div>
+    <div id="trash" class="row trash-row">
+        <div class="col-12 centered">
+            🗑️ Drag sales here to delete
+        </div>
+        
+    </div>
+
+       
+       
+       
+       
+
+
+
+
+
+{% endblock %}
+

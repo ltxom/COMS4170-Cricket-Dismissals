@@ -117,13 +117,16 @@ cricket_overview = {
         }
     }
 
+# Track the current quiz index
+current_quiz_index = 0
+
 @app.route('/')
 def home():
     return render_template('homepage.html')  
 
 
 @app.route('/quiz')
-def quiz(quiz=quizzes[1]):
+def quiz(quiz=quizzes[0]):
     print(quiz)
     return render_template('quiz.html', content=quiz) 
 
@@ -136,6 +139,29 @@ def overview():
 @app.route('/dismissals')
 def dismissals():
     return render_template('dismissals.html')
+
+
+@app.route("/submit-quiz", methods=["POST"])
+def submit_quiz():
+    global current_quiz_index
+    data = request.json
+    answers = data.get("answers", [])
+
+    # Validate answers (optional, based on your requirements)
+    print(f"User answers: {answers}")
+
+    # Check if there are more quizzes
+    if current_quiz_index < len(quizzes) - 1:
+        current_quiz_index += 1
+        return jsonify({"next_quiz": quizzes[current_quiz_index]})
+    else:
+        # No more quizzes, redirect to results
+        return jsonify({"next_quiz": None})
+
+
+@app.route("/quiz-results")
+def quiz_results():
+    return "<h1>Quiz Results Placeholder</h1><p>Your results will be displayed here.</p>"
 
 
 if __name__ == '__main__':

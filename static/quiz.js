@@ -68,20 +68,52 @@ function populate_quiz_page(content) {
     });
 }
 
-$(function() {
+let quizInProgress = false; // Initially set to false
+let pendingNavigation = null; // Store the link the user wants to navigate to
+
+$(function () {
     console.log(content);
     $("#quiz-dismissals").empty();
     $("#quiz-descriptors").empty();
 
     populate_quiz_page(content);
 
+    // Set quizInProgress to true when the user interacts with the quiz
+    $(document).on("dragstart", ".dismissal", function () {
+        quizInProgress = true; // User starts interacting with the quiz
+    });
+
+    $("#submit-quiz").on("click", function () {
+        quizInProgress = true; // User explicitly submits the quiz
+    });
+
+    // Show the custom pop-up when a navbar link is clicked
+    $("nav a").on("click", function (event) {
+        if (quizInProgress) {
+            event.preventDefault(); // Prevent immediate navigation
+            pendingNavigation = $(this).attr("href"); // Store the link
+            $("#exit-popup").removeClass("hidden"); // Show the pop-up
+        }
+    });
+
+    // Handle the "Leave quiz" button in the pop-up
+    $("#confirm-exit").on("click", function () {
+        quizInProgress = false; // Allow navigation
+        window.location.href = pendingNavigation; // Navigate to the stored link
+    });
+
+    // Handle the "Go back to quiz" button in the pop-up
+    $("#cancel-exit").on("click", function () {
+        $("#exit-popup").addClass("hidden"); // Hide the pop-up
+    });
+
     // Handle the submit button click
-    $("#submit-quiz").on("click", function() {
+    $("#submit-quiz").on("click", function () {
         let allAnswered = true;
         let answers = [];
 
         // Check if all droppable areas have an answer
-        $(".droppable-area").each(function() {
+        $(".droppable-area").each(function () {
             let droppedElement = $(this).children(".dismissal");
             if (droppedElement.length === 0) {
                 allAnswered = false;
@@ -103,7 +135,7 @@ $(function() {
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify({ answers: answers }),
-            success: function(response) {
+            success: function (response) {
                 if (response.next_quiz) {
                     // Load the next quiz
                     content = response.next_quiz;
@@ -115,7 +147,7 @@ $(function() {
                     window.location.href = "/quiz-results";
                 }
             },
-            error: function() {
+            error: function () {
                 // Show the error pop-up for server errors
                 $("#error-message").text("An error occurred while submitting your answers. Please try again.");
                 $("#error-popup").removeClass("hidden");
@@ -124,7 +156,7 @@ $(function() {
     });
 
     // Close the error pop-up when the close button is clicked
-    $("#close-popup").on("click", function() {
+    $("#close-popup").on("click", function () {
         $("#error-popup").addClass("hidden");
     });
 });

@@ -128,8 +128,10 @@ def home():
 
 @app.route('/quiz')
 def quiz(quiz=quizzes[0]):
-    print(quiz)
-    return render_template('quiz.html', content=quiz) 
+    global current_quiz_index, user_answers
+    current_quiz_index = 0
+    user_answers = []  # Clear previous answers
+    return render_template("quiz.html", content=quizzes[current_quiz_index])
 
 
 @app.route('/overview')

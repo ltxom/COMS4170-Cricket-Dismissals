@@ -117,8 +117,9 @@ cricket_overview = {
         }
     }
 
-# Track the current quiz index
+# Track the current quiz index and user answers
 current_quiz_index = 0
+user_answers = []  # Store user answers for all quizzes
 
 @app.route('/')
 def home():
@@ -143,25 +144,37 @@ def dismissals():
 
 @app.route("/submit-quiz", methods=["POST"])
 def submit_quiz():
-    global current_quiz_index
+    global current_quiz_index, user_answers
     data = request.json
     answers = data.get("answers", [])
 
-    # Validate answers (optional, based on your requirements)
-    print(f"User answers: {answers}")
+    # Store the user's answers for the current quiz
+    user_answers.append(answers)
 
     # Check if there are more quizzes
     if current_quiz_index < len(quizzes) - 1:
         current_quiz_index += 1
         return jsonify({"next_quiz": quizzes[current_quiz_index]})
     else:
-        # No more quizzes, redirect to results
+        # No more quizzes, calculate the score
         return jsonify({"next_quiz": None})
 
 
 @app.route("/quiz-results")
 def quiz_results():
-    return "<h1>Quiz Results Placeholder</h1><p>Your results will be displayed here.</p>"
+    global user_answers
+    total_score = 0
+    max_score = 0
+
+    # Calculate the score by comparing user answers with correct_order
+    for i, quiz in enumerate(quizzes):
+        correct_order = quiz["correct_order"]
+        user_response = user_answers[i] if i < len(user_answers) else []
+        max_score += len(correct_order)
+        total_score += sum(1 for j in range(len(correct_order)) if j < len(user_response) and user_response[j] == correct_order[j])
+
+    # Render the results page
+    return render_template("quiz_results.html", total_score=total_score, max_score=max_score)
 
 
 if __name__ == '__main__':

@@ -3,7 +3,13 @@ from flask import render_template
 from flask import Response, request, jsonify
 import itertools
 import re
+import json
 app = Flask(__name__)
+
+# Load dismissals JSON data
+with open('data/dismissals.json') as f:
+    dismissal_data = json.load(f)['dismissals']
+
 
 quizzes = [
     {
@@ -108,11 +114,12 @@ def quiz(quiz=quizzes[0]):
 def overview():
     return render_template('overview.html', slides=cricket_overview)
 
-
-@app.route('/dismissals')
-def dismissals():
-    return render_template('dismissals.html')
-
+@app.route('/dismissal/<int:id>')
+def dismissal_page(id):
+    if id < 1 or id > len(dismissal_data):
+        return redirect(url_for('home'))  # fallback if id is invalid
+    dismissal = dismissal_data[id - 1]
+    return render_template('dismissals.html', dismissal=dismissal)
 
 if __name__ == '__main__':
    app.run(debug = True, port=5001)

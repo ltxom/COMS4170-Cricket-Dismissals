@@ -14,13 +14,18 @@ function addDismissal(dismissal) {
     $("#quiz-dismissals").append(row);
 }
 
-function addDescriptor(descriptor) {
+function addDescriptor(descriptor, type) {
     let row = $("<div class='row'></div>");
 
     let col1 = $("<div class='col-6 droppable-area'></div>");
     let col2 = $("<div class='col-6'></div>");
+    let descriptor_class = ''
+    if (type == 'images') {
+        descriptor_class = $("<img class='descriptor-gif'>").attr("src", descriptor).attr("alt", "Descriptor GIF");
+    } else {
+        descriptor_class = $("<div class='descriptor'></div>").text(descriptor);
+    }
 
-    let descriptor_class = $("<div class='descriptor'></div>").text(descriptor);
     col2.append(descriptor_class);
 
     // Make col1 a droppable area
@@ -44,7 +49,7 @@ function populate_quiz_page(content) {
     });
 
     content.descriptors.forEach(function(descriptor, i) {
-        addDescriptor(descriptor);
+        addDescriptor(descriptor, content.descriptor_type);
     });
 }
 

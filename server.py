@@ -29,6 +29,30 @@ quizzes = [
             'hit wicket'
         ]
 
+    },
+    {
+        'descriptor_type' : 'images',
+        'dismissals' : [
+        'run out',
+        'bowled',
+        'caught'
+        ],
+        'explanations' : [
+            'The batsman is out run out if the fielder hits the stumps with the ball before the batsman reaches the crease.',
+            'The batsman is out bowled if the ball hits the stumps and dislodges the bails.',
+            'The batsman is out caught if the fielder catches the ball before it hits the ground.'
+        ],
+        'descriptors' : [
+            'static/gifs/bowled.gif',
+            'static/gifs/caught.gif',
+            'static/gifs/runout.gif'
+        ],
+        'correct_order' : [
+            'bowled',
+            'caught',
+            'run out'
+        ]
+
     }
     
 ]
@@ -99,7 +123,7 @@ def home():
 
 
 @app.route('/quiz')
-def quiz(quiz=quizzes[0]):
+def quiz(quiz=quizzes[1]):
     print(quiz)
     return render_template('quiz.html', content=quiz) 
 

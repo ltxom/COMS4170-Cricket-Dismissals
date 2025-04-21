@@ -86,3 +86,115 @@
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
+
+.error-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 2px solid #144aff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    z-index: 2000;
+    text-align: center;
+    width: 300px;
+}
+
+.error-popup p {
+    margin-bottom: 20px;
+    font-size: 1rem;
+    color: #333;
+}
+
+.error-popup button {
+    background-color: #144aff;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.error-popup button:hover {
+    background-color: #003ecc;
+}
+
+.hidden {
+    display: none!important;
+}
+
+.results-container {
+    text-align: center;
+    margin-top: 50px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.results-container h1 {
+    font-size: 2.5rem;
+    color: #144aff;
+    margin-bottom: 20px;
+}
+
+.results-container p {
+    font-size: 1.25rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.home-button {
+    display: inline-block;
+    text-decoration: none;
+    background-color: #144aff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+}
+
+.home-button:hover {
+    background-color: #003ecc;
+}
+
+#exit-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.popup-content button {
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#confirm-exit {
+    background-color: #144aff;
+    color: white;
+}
+
+#cancel-exit {
+    background-color: #ccc;
+    color: black;
+}

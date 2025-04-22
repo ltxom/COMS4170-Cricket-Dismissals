@@ -1,11 +1,28 @@
 
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 import json
+import datetime
 
 app = Flask(__name__)
 
 with open('data/dismissals.json') as f:
     dismissal_data = json.load(f)['dismissals']
+
+user_logs = []  
+with open("user_logs.jsonl", "w") as log_file:
+    log_file.write("")
+
+def log_user_action(page, action=None):
+    log_entry = {
+        "timestamp": datetime.datetime.now().isoformat(),
+        "page": page,
+        "action": action
+    }
+    user_logs.append(log_entry)
+    print(f"[User Log] {log_entry}")
+    with open("user_logs.jsonl", "a") as log_file:
+        log_file.write(json.dumps(log_entry) + "\n")
+
 
 # --- Overview content defined before use ---
 cricket_overview = {
@@ -70,14 +87,17 @@ cricket_overview = {
 
 @app.route('/')
 def home():
+    log_user_action(page="Home", action="Page Enter")
     return render_template('homepage.html')
 
 @app.route('/overview')
 def overview():
+    log_user_action(page="Overview", action="Page Enter")
     return render_template('overview.html', slides=cricket_overview)
 
 @app.route('/dismissal')
 def dismissals_main():
+    log_user_action(page="Dismissals", action="Page Enter")
     return render_template('dismissals_main.html', dismissals=dismissal_data, total=len(dismissal_data))
 
 @app.route('/dismissal/<int:id>')
@@ -85,6 +105,7 @@ def dismissal_page(id):
     if id < 1 or id > len(dismissal_data):
         return redirect(url_for('dismissals_main'))
     dismissal = dismissal_data[id - 1]
+    log_user_action(page=dismissal["name"], action="Page Enter")
     return render_template('dismissal_detail.html', dismissal=dismissal)
 
 # --- Quiz Functionality ---

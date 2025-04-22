@@ -1,5 +1,44 @@
 {% extends "layout.html" %}
 
 {% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='overview.css') }}">
 
+<div class="overviewSlider">
+    <h1 class="overviewHeader">{{ dismissal.name }}</h1>
+
+    <div class="slider">
+        <div class="slides">
+            <div class="slide">
+                <div class="field-container">
+                    <img src="{{ url_for('static', filename=dismissal.media) }}" alt="{{ dismissal.name }}">
+                </div>
+
+                <div class="description">
+                    <p>{{ dismissal.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Button -->
+    <div class="nav-buttons">
+        {% if dismissal.id > 1 %}
+        <a href="{{ url_for('dismissal_page', id=dismissal.id - 1) }}">
+            <button>← Previous</button>
+        </a>
+        {% else %}
+        <span></span>
+        {% endif %}
+
+        {% if dismissal.id < 5 %}
+        <a href="{{ url_for('dismissal_page', id=dismissal.id + 1) }}">
+            <button>Next →</button>
+        </a>
+        {% else %}
+        <a href="{{ url_for('quiz') }}">
+            <button>Take Quiz →</button>
+        </a>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

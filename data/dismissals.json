@@ -1,0 +1,35 @@
+{
+    "dismissals": [
+      {
+        "id": 1,
+        "name": "Bowled",
+        "description": "When the bowler delivers the ball and it hits the batter's stumps.",
+        "media": "media/bowled.gif"
+      },
+      {
+        "id": 2,
+        "name": "Caught",
+        "description": "If the batsman hits the ball, and the fielder catches it before it touches the ground.",
+        "media": "media/caught.gif"
+      },
+      {
+        "id": 3,
+        "name": "LBW",
+        "description": "If the ball hits any part of the batter's body (except the glove) and the umpire thinks it would have hit the stumps.",
+        "media": "media/lbw.gif"
+      },
+      {
+        "id": 4,
+        "name": "Run Out",
+        "description": "When the batsman is attempting a run and a fielder hits the stumps with the ball before the batsman reaches the crease.",
+        "media": "media/run_out.webp"
+      },
+      {
+        "id": 5,
+        "name": "Stumped",
+        "description": "If the batsman steps out of their crease and the wicketkeeper removes the bails with the ball.",
+        "media": "media/stumped.gif"
+      }
+    ]
+  }
+  

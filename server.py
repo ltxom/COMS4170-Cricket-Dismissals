@@ -144,6 +144,12 @@ def quiz(quiz=quizzes[0]):
 def overview():
     return render_template('overview.html', slides=cricket_overview)
 
+@app.route('/dismissal')
+def dismissals_main():
+    dismissal_names = [d['name'] for d in dismissal_data]
+    return render_template('dismissals_main.html', dismissals=dismissal_names, total=len(dismissal_data))
+
+
 @app.route('/dismissal/<int:id>')
 def dismissal_page(id):
     if id < 1 or id > len(dismissal_data):

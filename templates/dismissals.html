@@ -9,9 +9,13 @@
     <div class="slider">
         <div class="slides">
             <div class="slide">
-                <div class="field-container">
-                    <img src="{{ url_for('static', filename=dismissal.media) }}" alt="{{ dismissal.name }}">
-                </div>
+              <div class="field-container">
+                {% if '<iframe' in dismissal.media %}
+                  {{ dismissal.media | safe }}
+                {% else %}
+                  <img src="{{ url_for('static', filename=dismissal.media) }}" alt="{{ dismissal.name }}">
+                {% endif %}
+              </div>
 
                 <div class="description">
                     <p>{{ dismissal.description }}</p>
@@ -30,7 +34,7 @@
         <span></span>
         {% endif %}
 
-        {% if dismissal.id < 5 %}
+        {% if dismissal.id < 10 %}
         <a href="{{ url_for('dismissal_page', id=dismissal.id + 1) }}">
             <button>Next →</button>
         </a>
@@ -41,4 +45,16 @@
         {% endif %}
     </div>
 </div>
+
+<script>
+  function setCookie(name, value, days = 365) {
+    const expires = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; expires=${expires}; path=/`;
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const dismissalName = "{{ dismissal.name }}";
+    setCookie(dismissalName, true);
+  });
+</script>
 {% endblock %}

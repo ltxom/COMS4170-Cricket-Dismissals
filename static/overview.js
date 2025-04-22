@@ -36,7 +36,7 @@ function updateSlider() {
     if (currentIndex === totalSlides - 1) {
         nextBtn.textContent = "Dismissals →";
         nextBtn.onclick = function() {
-            window.location.href = "/dismissal/1";
+            window.location.href = "/dismissal";
         };
     } else {
         // Default Next button functionality

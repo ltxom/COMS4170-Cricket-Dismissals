@@ -1,30 +1,36 @@
 {% extends "layout.html" %}
 
 {% block content %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='overview.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='overview.css') }}">
 
-  <div class="overviewSlider">
-    <h1 class="overviewHeader">Dismissals</h1>
-    <p class="subtitle" style="text-align: center; font-size: 1.2rem; color: #555; margin-bottom: 30px;">
-      There are 10 ways a player can get out. Click each one to learn more.
-    </p>
+<div class="overviewSlider">
+  <h1 class="overviewHeader">Dismissals</h1>
+  <p class="subtitle" style="text-align: center; font-size: 1.2rem; color: #555; margin-bottom: 30px;">
+    There are 10 ways a player can get out. Click each one to learn more.
+  </p>
 
-    <div class="grid nav-buttons">
-      {% for dismissal in dismissals %}
-        <button class="dismissal-btn" disabled data-dismissal="{{ dismissal }}"
-                data-dismissal-index="{{ loop.index }}">
-          {{ dismissal }}
-        </button>
-      {% endfor %}
-    </div>
-    <div style="text-align: center; margin-top: 30px;">
-      <button id="clear-cookies-btn" class="debug-btn" style="background-color: #e74c3c; color: white;">
-        Debug: Clear Dismissal Cookies
+  <div class="grid nav-buttons">
+    {% for dismissal in dismissals %}
+      <button class="dismissal-btn" data-dismissal="{{ dismissal.name }}"
+              data-dismissal-index="{{ loop.index }}">
+        {{ dismissal.name }}
       </button>
-    </div>
+    {% endfor %}
   </div>
 
-  <script>
+  <div style="text-align: center; margin-top: 30px;">
+    <button id="clear-cookies-btn" class="debug-btn" style="background-color: #e74c3c; color: white;">
+      Debug: Clear Dismissal Cookies
+    </button>
+  </div>
+
+  <div style="text-align: center; margin-top: 40px;">
+    <a href="/quiz" id="start-quiz-btn" class="btn btn-success" style="display: none;">Take Quiz →</a>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
     function setCookie(name, value, days = 365) {
       const expires = new Date(Date.now() + days * 864e5).toUTCString();
       document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; expires=${expires}; path=/`;
@@ -37,13 +43,19 @@
         ?.split('=')[1];
     }
 
-    document.querySelectorAll('.dismissal-btn').forEach(btn => {
+    const btns = document.querySelectorAll('.dismissal-btn');
+    const total = {{ total }};
+    let visitedCount = 0;
+
+    btns.forEach(btn => {
       const name = btn.dataset.dismissal;
       const index = btn.getAttribute("data-dismissal-index");
       const visited = getCookie(name);
 
-      if (visited === "true" || index === "1") {
-        btn.removeAttribute('disabled');
+      if (visited === "true") {
+        btn.classList.add("visited");
+        btn.textContent = "✅ " + name;
+        visitedCount++;
       }
 
       btn.addEventListener('click', () => {
@@ -52,24 +64,34 @@
       });
     });
 
+    if (visitedCount === total) {
+      document.getElementById("start-quiz-btn").style.display = "inline-block";
+    }
+
     function deleteCookie(name) {
       document.cookie = `${encodeURIComponent(name)}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
     }
+
     const clearBtn = document.getElementById('clear-cookies-btn');
     if (clearBtn) {
       clearBtn.addEventListener('click', () => {
-        document.querySelectorAll('.dismissal-btn').forEach(btn => {
+        btns.forEach(btn => {
           const name = btn.dataset.dismissal;
-          const index = btn.getAttribute("data-dismissal-index");
-
-          if (index !== "1") {
-            deleteCookie(name);
-            btn.setAttribute('disabled', true);
-          }
+          deleteCookie(name);
+          btn.textContent = name;
+          btn.classList.remove("visited");
         });
-
-        alert('Dismissal-related cookies cleared (except first)!');
+        document.getElementById("start-quiz-btn").style.display = "none";
+        alert('Dismissal cookies cleared!');
       });
     }
-  </script>
+  });
+</script>
+
+<style>
+  .visited {
+    background-color: #d3ffd3;
+    color: #1d6b1d;
+  }
+</style>
 {% endblock %}

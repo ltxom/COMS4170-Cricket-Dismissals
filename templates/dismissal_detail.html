@@ -1,0 +1,222 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='overview.css') }}">
+
+<style>
+  .field-container {
+    position: relative;
+    width: 100%;
+  }
+
+  #lbw-zone {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    width: 6.5%;
+    height: 17%;
+    z-index: 10;
+    opacity: 0;
+    background-color: rgba(0, 255, 0, 0.3);
+    border: 2px dashed green;
+    pointer-events: all;
+    transition: opacity 0.4s ease;
+  }
+
+  #drag-ball {
+    width: 50px;
+    cursor: grab;
+    position: absolute;
+    top: 75%;
+    left: 30%;
+    z-index: 20;
+  }
+
+  #batsman {
+    position: absolute;
+    top: 60%;
+    left: 85%;
+    width: 80px;
+    cursor: grab;
+    z-index: 10;
+  }
+
+  #crease-line {
+    position: absolute;
+    top: 0;
+    left: 86%;
+    width: 3px;
+    height: 100%;
+    background-color: transparent;
+    z-index: 5;
+    transition: background-color 0.3s ease;
+  }
+
+  #lbw-feedback, #lbw-hint, #runout-feedback, #runout-hint {
+    margin-top: 20px;
+    display: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
+  #lbw-feedback, #runout-feedback {
+    background-color: #e6ffe6;
+    color: #1d6b1d;
+  }
+
+  #lbw-hint, #runout-hint {
+    background-color: #fff8e1;
+    border: 1px solid #ffcc00;
+    color: #665200;
+  }
+</style>
+
+<div class="overviewSlider">
+  <h1 class="overviewHeader">{{ dismissal.name }}</h1>
+
+  <div class="slider">
+    <div class="slides" id="dismissalSlides">
+      <!-- Slide 1: Description -->
+      <div class="slide">
+        {% if dismissal.media %}
+        <img src="{{ url_for('static', filename=dismissal.media) }}" class="img-fluid" alt="{{ dismissal.name }}">
+        {% endif %}
+        <div class="description">{{ dismissal.description }}</div>
+      </div>
+
+      <!-- Slide 2: Interaction if applicable -->
+      {% if dismissal.name == "LBW" %}
+      <div class="slide">
+        <div class="field-container drop-target">
+          <img src="{{ url_for('static', filename='images/lbw_diagram.jpg') }}" class="img-fluid" alt="LBW Diagram">
+          <div id="lbw-zone"></div>
+          <img src="{{ url_for('static', filename='images/ball.png') }}" id="drag-ball" draggable="true">
+        </div>
+        <div class="description">
+          The batsman is attempting to swing at the incoming bowl.<br>
+          <strong>Where can you place the ball so the outcome is “leg before wicket”?</strong>
+        </div>
+        <div id="lbw-feedback" class="description">✅ Correct! The ball hit the leg in front of the stumps.</div>
+        <div id="lbw-hint" class="description">⚠️ Try placing the ball where it would hit the batter’s leg.</div>
+      </div>
+      {% elif dismissal.name == "Run Out" %}
+      <div class="slide">
+        <div class="field-container run-out-field">
+          <img src="{{ url_for('static', filename='images/run_out_diagram.jpg') }}" class="img-fluid" alt="Run Out">
+          <div id="crease-line"></div>
+          <img src="{{ url_for('static', filename='images/batsman_lunging.jpg') }}" id="batsman" draggable="true">
+        </div>
+        <div class="description">
+          Drag the batsman to a place where they would be “run out” if the ball hits the stumps.
+        </div>
+        <div id="runout-feedback" class="description">✅ Correct! The batsman was out of the crease.</div>
+        <div id="runout-hint" class="description">⚠️ Try dragging the batsman behind the crease line.</div>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="nav-buttons">
+      <button onclick="prevSlide()">← Previous</button>
+      <button onclick="nextSlide()">Next →</button>
+    </div>
+  </div>
+
+  <div style="text-align: center; margin-top: 30px;">
+    <a href="{{ url_for('dismissals_main') }}">
+      <button class="btn btn-secondary">← Back to All Dismissals</button>
+    </a>
+  </div>
+</div>
+
+<script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('#dismissalSlides .slide');
+  const nextBtn = document.querySelector('.nav-buttons button:nth-child(2)');
+  const prevBtn = document.querySelector('.nav-buttons button:nth-child(1)');
+
+  function updateSlider() {
+    slides.forEach((slide, index) => {
+      slide.style.display = index === currentSlide ? 'block' : 'none';
+    });
+    prevBtn.disabled = currentSlide === 0;
+    nextBtn.disabled = currentSlide === slides.length - 1;
+  }
+
+  function nextSlide() {
+    if (currentSlide < slides.length - 1) {
+      currentSlide++;
+      updateSlider();
+    }
+  }
+
+  function prevSlide() {
+    if (currentSlide > 0) {
+      currentSlide--;
+      updateSlider();
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    updateSlider();
+
+    const ball = document.getElementById("drag-ball");
+    const lbwZone = document.getElementById("lbw-zone");
+    const lbwFeedback = document.getElementById("lbw-feedback");
+    const lbwHint = document.getElementById("lbw-hint");
+
+    if (ball && lbwZone) {
+      ball.addEventListener("dragstart", e => e.dataTransfer.setData("text/plain", "ball"));
+      lbwZone.addEventListener("dragover", e => e.preventDefault());
+      lbwZone.addEventListener("drop", function (e) {
+        e.preventDefault();
+        lbwZone.style.opacity = 1;
+        lbwFeedback.style.display = "block";
+        lbwHint.style.display = "none";
+
+        const zoneRect = lbwZone.getBoundingClientRect();
+        const parentRect = lbwZone.parentElement.getBoundingClientRect();
+
+        ball.style.left = (zoneRect.left - parentRect.left + zoneRect.width / 2 - ball.offsetWidth / 2) + "px";
+        ball.style.top = (zoneRect.top - parentRect.top + zoneRect.height / 2 - ball.offsetHeight / 2) + "px";
+
+        lbwFeedback.scrollIntoView({ behavior: "smooth" });
+      });
+
+      ball.addEventListener("dragend", function (e) {
+        const zoneRect = lbwZone.getBoundingClientRect();
+        const mouseX = e.clientX, mouseY = e.clientY;
+        const inZone = mouseX >= zoneRect.left && mouseX <= zoneRect.right && mouseY >= zoneRect.top && mouseY <= zoneRect.bottom;
+        if (!inZone) lbwHint.style.display = "block";
+      });
+    }
+
+    const batsman = document.getElementById("batsman");
+    const crease = document.getElementById("crease-line");
+    const runoutFeedback = document.getElementById("runout-feedback");
+    const runoutHint = document.getElementById("runout-hint");
+
+    if (batsman && crease) {
+      let offsetX = 0;
+      batsman.addEventListener("dragstart", e => offsetX = e.offsetX);
+      batsman.addEventListener("dragend", function (e) {
+        const parentRect = batsman.parentElement.getBoundingClientRect();
+        const creaseX = crease.getBoundingClientRect().left - parentRect.left;
+        const newLeft = e.clientX - parentRect.left - offsetX;
+        batsman.style.left = `${newLeft}px`;
+
+        const batsmanRight = newLeft + batsman.offsetWidth;
+        if (batsmanRight < creaseX) {
+          crease.style.backgroundColor = 'green';
+          runoutFeedback.style.display = "block";
+          runoutHint.style.display = "none";
+        } else {
+          runoutFeedback.style.display = "none";
+          runoutHint.style.display = "block";
+        }
+      });
+    }
+  });
+</script>
+{% endblock %}

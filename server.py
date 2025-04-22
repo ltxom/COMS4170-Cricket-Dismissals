@@ -1,24 +1,97 @@
-from flask import Flask
-from flask import render_template
-from flask import Response, request, jsonify
-import itertools
-import re
+
+from flask import Flask, render_template, request, jsonify, redirect, url_for
 import json
+
 app = Flask(__name__)
 
-# Load dismissals JSON data
 with open('data/dismissals.json') as f:
     dismissal_data = json.load(f)['dismissals']
 
+# --- Overview content defined before use ---
+cricket_overview = {
+    1: {
+        "image": "static/images/wicket.JPG",
+        "hotspots": [
+            {"top": "52%", "left": "32%", "label": "Stumps"},
+            {"top": "37%", "left": "33%", "label": "Bails"},
+            {"top": "51%", "left": "63%", "label": "Pitch"},
+            {"top": "62%", "left": "66%", "label": "Crease line"},
+            {"top": "17%", "left": "65%", "label": "Infield Boundary"}
+        ],
+        "description": [
+            "🏏 Cricket is played between 2 teams, each with 11 players",
+            "🏏 It is played on an oval-shaped field. In the center, there is a rectangular strip called the pitch.",
+            "🏏 At both ends of the pitch are wickets made of 3 wooden stumps and 2 small bails on top."
+        ]
+    },
+    2: {
+        "image": "static/images/field.JPG",
+        "hotspots": [
+            {"top": "65%", "left": "28%", "label": "Batsman (Striker)"},
+            {"top": "58%", "left": "57%", "label": "Batsman (Non-striker)"},
+            {"top": "52%", "left": "72%", "label": "Bowler"},
+            {"top": "35%", "left": "82%", "label": "Umpire"},
+            {"top": "40%", "left": "23%", "label": "Fielder"}
+        ],
+        "description": [
+            "🏏 Batting team has two batters on the field at a time, standing at opposite ends of the pitch.",
+            "🥎 The bowler bowls the ball from one end of the pitch to the batter standing at the other end.",
+            "🏏 The batter tries to protect the stumps and score runs."
+        ]
+    },
+    3: {
+        "image": "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMGFsMnZuMHcwdTR3dGRka3o0NmdzODNydnhkYWYyaGJuZ3M4NXphcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/kDXtscxqmTgm9XIWXk/giphy.gif",
+        "description": [
+            "Each team takes turns to bat and bowl/field. The bowler delivers the ball to the batter, who tries to hit it with a bat. The batter stands in front of the stumps and tries not to let the ball hit them.",
+            "🥎 Hitting the ball and running between the wickets (1 run)",
+            "🥎 Hitting the ball to the boundary along the ground (4 runs)",
+            "🥎 Hitting the ball over the boundary without it touching the ground (6 runs)"
+        ]
+    },
+    4: {
+        "image": "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDRlY3JtcWR2OGJ6Z2pnbnd6MDd3Mmg0NjdkNDF3Mjg3OWJzcjFsdyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/kEWuibK6peH2LqbFsa/giphy.gif",
+        "description": [
+            "Getting Out: The fielding team tries to get the batter out. This is called a dismissal.",
+            "🥎 Bowled",
+            "🥎 Caught",
+            "🥎 Run out",
+            "🥎 LBW"
+        ]
+    },
+    5: {
+        "image": "https://media.giphy.com/media/XvisXTFLX4SuCEZzew/giphy.gif?cid=ecf05e47exw3wat42s3nb5l691srzfubxit1lng765t19x3n&ep=v1_gifs_search&rid=giphy.gif&ct=g",
+        "description": [
+            "When the batting team finishes their innings (either all players are out or all overs are completed), the teams switch roles.",
+            "🏏 What is an over? An over consists of 6 balls bowled by one bowler. The number of overs in a match depends on the format ex. T20 has 20 overs per team.",
+            "🏏 The team that scores the most runs in their innings wins the match."
+        ]
+    }
+}
 
+@app.route('/')
+def home():
+    return render_template('homepage.html')
+
+@app.route('/overview')
+def overview():
+    return render_template('overview.html', slides=cricket_overview)
+
+@app.route('/dismissal')
+def dismissals_main():
+    return render_template('dismissals_main.html', dismissals=dismissal_data, total=len(dismissal_data))
+
+@app.route('/dismissal/<int:id>')
+def dismissal_page(id):
+    if id < 1 or id > len(dismissal_data):
+        return redirect(url_for('dismissals_main'))
+    dismissal = dismissal_data[id - 1]
+    return render_template('dismissal_detail.html', dismissal=dismissal)
+
+# --- Quiz Functionality ---
 quizzes = [
     {
         'descriptor_type' : 'text',
-        'dismissals' : [
-        'LBW',
-        'hit wicket',
-        'timed out'
-        ],
+        'dismissals' : ['LBW', 'hit wicket', 'timed out'],
         'explanations' : [
             'The batsman is out LBW if the ball hits his leg and would have gone on to hit the stumps.',
             'The batsman is out timed out if he does not arrive at the crease within 3 minutes of the previous batsman being dismissed.',
@@ -29,20 +102,11 @@ quizzes = [
             'Batsman blocks the ball from hitting the stumps with their leg',
             'Batsman while attempting to hit the ball, hits the wicket and knocks the stumps off'
         ],
-        'correct_order' : [
-            'timed out',
-            'LBW',
-            'hit wicket'
-        ]
-
+        'correct_order' : ['timed out', 'LBW', 'hit wicket']
     },
     {
         'descriptor_type' : 'images',
-        'dismissals' : [
-        'run out',
-        'bowled',
-        'caught'
-        ],
+        'dismissals' : ['run out', 'bowled', 'caught'],
         'explanations' : [
             'The batsman is out run out if the fielder hits the stumps with the ball before the batsman reaches the crease.',
             'The batsman is out bowled if the ball hits the stumps and dislodges the bails.',
@@ -53,146 +117,43 @@ quizzes = [
             'static/gifs/caught.gif',
             'static/gifs/runout.gif'
         ],
-        'correct_order' : [
-            'bowled',
-            'caught',
-            'run out'
-        ]
-
+        'correct_order' : ['bowled', 'caught', 'run out']
     }
-    
 ]
 
-cricket_overview = {
-        1: {
-            "image": "static/images/wicket.JPG",
-            "hotspots": [
-                {"top": "52%", "left": "32%", "label": "Stumps"},
-                {"top": "37%", "left": "33%", "label": "Bails"},
-                {"top": "51%", "left": "63%", "label": "Pitch"},
-                {"top": "62%", "left": "66%", "label": "Crease line"},
-                {"top": "17%", "left": "65%", "label": "Infield Boundary"}
-            ],
-            "description": [
-                "🏏 Cricket is played between 2 teams, each with 11 players",
-                "🏏 It is played on an oval-shaped field. In the center, there is a rectangular strip called the pitch.",
-                "🏏 At both ends of the pitch are wickets made of 3 wooden stumps and 2 small bails on top."
-            ]
-        },
-        2: {
-            "image": "static/images/field.JPG",
-            "hotspots": [
-                {"top": "65%", "left": "28%", "label": "Batsman (Striker)"},
-                {"top": "58%", "left": "57%", "label": "Batsman (Non-striker)"},
-                {"top": "52%", "left": "72%", "label": "Bowler"},
-                {"top": "35%", "left": "82%", "label": "Umpire"},
-                {"top": "40%", "left": "23%", "label": "Fielder"}
-            ],
-            "description": [
-                "🏏 Batting team has two batters on the field at a time, standing at opposite ends of the pitch.",
-                "🥎 The bowler bowls the ball from one end of the pitch to the batter standing at the other end.",
-                "🏏 The batter tries to protect the stumps and score runs."
-            ]
-        },
-        3: {
-            "image": "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMGFsMnZuMHcwdTR3dGRka3o0NmdzODNydnhkYWYyaGJuZ3M4NXphcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/kDXtscxqmTgm9XIWXk/giphy.gif",
-            "description": [
-                "Each team takes turns to bat and bowl/field. The bowler delivers the ball to the batter, who tries to hit it with a bat. The batter stands in front of the stumps and tries not to let the ball hit them.",
-                "🥎 Hitting the ball and running between the wickets (1 run)",
-                "🥎 Hitting the ball to the boundary along the ground (4 runs)",
-                "🥎 Hitting the ball over the boundary without it touching the ground (6 runs)"
-            ]
-        },
-        4: {
-            "image": "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDRlY3JtcWR2OGJ6Z2pnbnd6MDd3Mmg0NjdkNDF3Mjg3OWJzcjFsdyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/kEWuibK6peH2LqbFsa/giphy.gif",
-            "description": [
-                "Getting Out: The fielding team tries to get the batter out. This is called a dismissal.",
-                "🥎 Bowled",
-                "🥎 Caught",
-                "🥎 Run out",
-                "🥎 LBW"
-            ]
-        },
-        5: {
-            "image": "https://media.giphy.com/media/XvisXTFLX4SuCEZzew/giphy.gif?cid=ecf05e47exw3wat42s3nb5l691srzfubxit1lng765t19x3n&ep=v1_gifs_search&rid=giphy.gif&ct=g",
-            "description": [
-                "When the batting team finishes their innings (either all players are out or all overs are completed), the teams switch roles.",
-                "🏏 What is an over? An over consists of 6 balls bowled by one bowler. The number of overs in a match depends on the format ex. T20 has 20 overs per team.",
-                "🏏 The team that scores the most runs in their innings wins the match."
-            ]
-        }
-    }
-
-# Track the current quiz index and user answers
 current_quiz_index = 0
-user_answers = []  # Store user answers for all quizzes
-
-@app.route('/')
-def home():
-    return render_template('homepage.html')  
-
+user_answers = []
 
 @app.route('/quiz')
 def quiz(quiz=quizzes[0]):
     global current_quiz_index, user_answers
     current_quiz_index = 0
-    user_answers = []  # Clear previous answers
+    user_answers = []
     return render_template("quiz.html", content=quizzes[current_quiz_index])
-
-
-@app.route('/overview')
-def overview():
-    return render_template('overview.html', slides=cricket_overview)
-
-@app.route('/dismissal')
-def dismissals_main():
-    dismissal_names = [d['name'] for d in dismissal_data]
-    return render_template('dismissals_main.html', dismissals=dismissal_names, total=len(dismissal_data))
-
-
-@app.route('/dismissal/<int:id>')
-def dismissal_page(id):
-    if id < 1 or id > len(dismissal_data):
-        return redirect(url_for('home'))  # fallback if id is invalid
-    dismissal = dismissal_data[id - 1]
-    return render_template('dismissals.html', dismissal=dismissal)
 
 @app.route("/submit-quiz", methods=["POST"])
 def submit_quiz():
     global current_quiz_index, user_answers
     data = request.json
     answers = data.get("answers", [])
-
-    # Store the user's answers for the current quiz
     user_answers.append(answers)
-
-    # Check if there are more quizzes
     if current_quiz_index < len(quizzes) - 1:
         current_quiz_index += 1
         return jsonify({"next_quiz": quizzes[current_quiz_index]})
     else:
-        # No more quizzes, calculate the score
         return jsonify({"next_quiz": None})
-
 
 @app.route("/quiz-results")
 def quiz_results():
     global user_answers
     total_score = 0
     max_score = 0
-
-    # Calculate the score by comparing user answers with correct_order
     for i, quiz in enumerate(quizzes):
         correct_order = quiz["correct_order"]
         user_response = user_answers[i] if i < len(user_answers) else []
         max_score += len(correct_order)
         total_score += sum(1 for j in range(len(correct_order)) if j < len(user_response) and user_response[j] == correct_order[j])
-
-    # Render the results page
     return render_template("quiz_results.html", total_score=total_score, max_score=max_score)
 
-
 if __name__ == '__main__':
-   app.run(debug = True, port=5001)
-
-
+    app.run(debug=True, port=5001)

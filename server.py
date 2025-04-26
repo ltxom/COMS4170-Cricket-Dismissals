@@ -97,8 +97,8 @@ def overview():
 
 @app.route('/dismissal')
 def dismissals_main():
-    log_user_action(page="Dismissals", action="Page Enter")
-    return render_template('dismissals_main.html', dismissals=dismissal_data, total=len(dismissal_data))
+    # log_user_action(page="Dismissals", action="Page Enter")
+    return redirect(url_for('dismissal_page', id=1))
 
 @app.route('/dismissal/<int:id>')
 def dismissal_page(id):
@@ -106,7 +106,7 @@ def dismissal_page(id):
         return redirect(url_for('dismissals_main'))
     dismissal = dismissal_data[id - 1]
     log_user_action(page=dismissal["name"], action="Page Enter")
-    return render_template('dismissal_detail.html', dismissal=dismissal)
+    return render_template('dismissal_detail.html', dismissal=dismissal, dismissals=dismissal_data, total=len(dismissal_data))
 
 # --- Quiz Functionality ---
 quizzes = [

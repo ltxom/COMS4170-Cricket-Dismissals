@@ -1,4 +1,3 @@
-/* Full screen hero section */
 .transition-hero {
   width: 100%;
   height: 100vh;
@@ -10,29 +9,25 @@
   box-sizing: border-box;
 }
 
-/* Inner content */
 .transition-content {
   margin-top: 5rem;
   text-align: center;
   animation: fadeIn 1s ease forwards;
 }
 
-/* Main heading */
+
 .main-heading {
   font-size: 4rem;
-  color: #2c3e50;
   margin-bottom: 1rem;
   font-weight: 700;
 }
 
-/* Subheading */
 .sub-heading {
   font-size: 1.5rem;
   color: #7f8c8d;
   margin-bottom: 3rem;
 }
 
-/* Actions container */
 .actions {
   display: flex;
   flex-wrap: wrap;
@@ -40,7 +35,6 @@
   justify-content: center;
 }
 
-/* Common button styles */
 .action-btn {
   padding: 1rem 2.5rem;
   font-size: 1.4rem;
@@ -51,7 +45,6 @@
   border: 2px solid transparent;
 }
 
-/* Primary button (Start Quiz) */
 .primary-btn {
   background: #2980b9;
   color: white;
@@ -59,12 +52,12 @@
 }
 
 .primary-btn:hover {
-  background: #3498db;
-  border-color: #3498db;
+  background: #1f6391;
+  border-color: #1f6391;
+  color: white;
   transform: translateY(-5px);
 }
 
-/* Secondary button (Overview) */
 .secondary-btn {
   background: transparent;
   color: #2980b9;
@@ -73,10 +66,10 @@
 
 .secondary-btn:hover {
   background: #ecf5ff;
+  color: #1f6391;
   transform: translateY(-5px);
 }
 
-/* Fade In Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;

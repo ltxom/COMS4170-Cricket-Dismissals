@@ -66,11 +66,14 @@
 }
 
 .navbar .navbar-nav .nav-link {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
 }
 
 
-
+.navbar-brand {
+    font-size: 1.7rem;
+    font-weight: bold;
+}
 .home-hero {
     display: flex;
     flex-direction: row;
@@ -88,7 +91,6 @@
 .main-heading {
     font-size: 3rem;
     margin-bottom: 1rem;
-    color: #3d3d3d;
     font-weight: bold;
 }
 
@@ -115,14 +117,15 @@
 }
 
 .cta-button:hover {
-    background-color: #003ecc;
+    background-color: #1f6391;
     color: #fff;
 }
 
 .home-image img {
-    max-width: 110%; /* slightly larger */
+    max-width: 125%; /* slightly larger */
     height: auto;
     border-radius: 16px;
+    margin-top: -15%;
 }
 
 .home-container {
@@ -154,7 +157,6 @@
 
 .home-image {
     flex: 1;
-    display: flex;
     justify-content: center;
 }
 
@@ -164,7 +166,13 @@
 .backgroundAccent {
     background-color: #2980b9;
 }
+.darkGrey{
+    color: #3d3d3d!important;
+}
 
+.lightGrey {
+    color:#8a8a8a!important;
+}
 /*body {
     display: flex;
     flex-direction: column;

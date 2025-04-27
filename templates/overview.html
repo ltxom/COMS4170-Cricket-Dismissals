@@ -7,7 +7,7 @@
 
 
     <div class="overviewSlider">
-        <h1 class="overviewHeader">Cricket Overview</h1>
+        <h1 class="overviewHeader darkGrey">Cricket Overview</h1>
 
         <div class="slider">
             <div class="slides" id="slides">
@@ -16,14 +16,14 @@
                     <div class="field-container">
                         <img src="{{ slide.image }}" alt="Slide {{ slide_num }}" id="fieldImage">
                         {% if slide.hotspots %}
-                        <p class="descriptionImage">Tap each dot to reveal the name</p>
+                        <p class="descriptionImage lightGrey">Tap each dot to reveal the name</p>
                         {% for spot in slide.hotspots %}
                         <button class="player" style="top: {{ spot.top }}; left: {{ spot.left }};" onclick="showLabel(this, '{{ spot.label }}')"></button>
                         {% endfor %}
                         <div class="label" id="tooltip"></div>
                         {% endif %}
                     </div>
-                    <div class="description">
+                    <div class="description darkGrey">
                         {% for line in slide.description %}
                         <p>{{ line }}</p>
                         {% endfor %}
@@ -39,13 +39,13 @@
 
         <!-- Progress Bar -->
         <div class="progress">
-            <div class="progress-bar" id="progressBar"></div>
+            <div class="progress-bar backgroundAccent" id="progressBar"></div>
         </div>
 
         <!-- Navigation Buttons -->
         <div class="nav-buttons">
             <button id="prevBtn" class="secondary-button " onclick="prevSlide()">← Previous</button>
-            <button id="nextBtn" onclick="nextSlide()">Next →</button>
+            <button id="nextBtn" class="backgroundAccent" onclick="nextSlide()">Next →</button>
         </div>
 
     </div>

@@ -105,7 +105,7 @@
     font-size: 1.6rem;
     min-width: 280px; /* Ensures width is wide even with shorter text */
     text-align: center;
-    background-color: #144aff;
+    background-color: #2980b9;
     color: #fff;
     border: none;
     border-radius: 16px;
@@ -162,7 +162,7 @@
     background-color: #f4f8fb;
 }
 .backgroundAccent {
-    background-color: #144aff;
+    background-color: #2980b9;
 }
 
 /*body {

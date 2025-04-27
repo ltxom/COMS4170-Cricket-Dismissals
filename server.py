@@ -108,6 +108,11 @@ def dismissal_page(id):
     log_user_action(page=dismissal["name"], action="Page Enter")
     return render_template('dismissal_detail.html', dismissal=dismissal, dismissals=dismissal_data, total=len(dismissal_data))
 
+@app.route('/start-quiz')
+def startQuiz():
+    log_user_action(page="Start Quiz", action="Page Enter")
+    return render_template('transition.html')
+
 # --- Quiz Functionality ---
 quizzes = [
     {

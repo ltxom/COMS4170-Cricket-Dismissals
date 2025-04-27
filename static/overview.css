@@ -1,9 +1,10 @@
 .overviewHeader {
     text-align: center;
-    font-size: 2.2rem;
+    font-size: 3.0rem;
     margin-bottom: 30px;
     color: #222;
     padding-top: 30px;
+    font-weight: bold;
 }
 
 .slider {
@@ -41,7 +42,7 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background-color: rgba(255, 0, 0, 0.75);
+    background-color: #2980b9;
     border: 2px solid white;
     cursor: pointer;
 }
@@ -165,4 +166,15 @@ text-align: center;
 }
 .secondary-button {
     background-color: #888888 !important;
+}
+
+.backgroundBase{
+    background-color: #f4f8fb;
+}
+.backgroundAccent {
+    background-color: #2980b9!important;
+}
+
+#nextBtn:disabled {
+    background-color: #a6c8e5 !important; 
 }

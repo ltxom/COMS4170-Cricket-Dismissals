@@ -30,7 +30,8 @@ function updateSlider() {
     }
 
     // Disable the Previous button on the first slide
-    prevBtn.disabled = currentIndex === 0;
+    prevBtn.style.visibility = currentIndex === 0 ? "hidden" : "visible";
+
 
     // Change the "Next" button text and action on the last slide
     if (currentIndex === totalSlides - 1) {

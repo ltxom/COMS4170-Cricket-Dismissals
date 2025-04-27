@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='transition.css') }}">
+
+<section class="transition-hero">
+  <div class="transition-content">
+    <h1 class="main-heading">Learning material completed</h1>
+    <p class="sub-heading">Take your time — review again, or test your knowledge!</p>
+
+    <div class="actions">
+      <a href="{{ url_for('overview') }}" class="action-btn secondary-btn">Restart Learning</a>
+      <a href="{{ url_for('quiz') }}" class="action-btn primary-btn">Start Quiz</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

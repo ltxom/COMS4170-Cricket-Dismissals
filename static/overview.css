@@ -160,3 +160,9 @@ text-align: center;
 .description p {
     font-size: 1.3rem; /* Adjust the font size as needed */
 }
+.secondary-button:disabled {
+    background-color: #ccc !important;
+}
+.secondary-button {
+    background-color: #888888 !important;
+}

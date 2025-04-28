@@ -28,9 +28,9 @@ cricket_overview = {
     1: {
         "image": "static/images/wicket.JPG",
         "hotspots": [
-            {"top": "52%", "left": "32%", "label": "Stumps"},
-            {"top": "37%", "left": "33%", "label": "Bails"},
-            {"top": "51%", "left": "63%", "label": "Pitch"},
+            {"top": "54%", "left": "32%", "label": "Stumps"},
+            {"top": "38%", "left": "33%", "label": "Bails"},
+            {"top": "53%", "left": "63%", "label": "Pitch"},
             {"top": "62%", "left": "66%", "label": "Crease line"},
             {"top": "17%", "left": "65%", "label": "Infield Boundary"}
         ],
@@ -96,8 +96,8 @@ def overview():
 
 @app.route('/dismissal')
 def dismissals_main():
-    log_user_action(page="Dismissals", action="Page Enter")
-    return render_template('dismissals_main.html', dismissals=dismissal_data, total=len(dismissal_data))
+    # log_user_action(page="Dismissals", action="Page Enter")
+    return redirect(url_for('dismissal_page', id=1))
 
 @app.route('/dismissal/<int:id>')
 def dismissal_page(id):
@@ -105,7 +105,12 @@ def dismissal_page(id):
         return redirect(url_for('dismissals_main'))
     dismissal = dismissal_data[id - 1]
     log_user_action(page=dismissal["name"], action="Page Enter")
-    return render_template('dismissal_detail.html', dismissal=dismissal)
+    return render_template('dismissal_detail.html', dismissal=dismissal, dismissals=dismissal_data, total=len(dismissal_data))
+
+@app.route('/start-quiz')
+def startQuiz():
+    log_user_action(page="Start Quiz", action="Page Enter")
+    return render_template('transition.html')
 
 # --- Quiz Functionality ---
 quizzes = [

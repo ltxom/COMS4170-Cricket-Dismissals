@@ -30,7 +30,8 @@ function updateSlider() {
     }
 
     // Disable the Previous button on the first slide
-    prevBtn.disabled = currentIndex === 0;
+    prevBtn.style.visibility = currentIndex === 0 ? "hidden" : "visible";
+
 
     // Change the "Next" button text and action on the last slide
     if (currentIndex === totalSlides - 1) {
@@ -79,7 +80,7 @@ function showLabel(button, position) {
     button.setAttribute("data-clicked", "true");
 
     // Change the color of the clicked hotspot to a lighter shade
-    button.style.backgroundColor = "rgba(255, 0, 0, 0.25)"; // Lighten the red color
+    button.style.backgroundColor = "#a6c8e5"; // Lighten the red color
 
     if (!clickedMap[currentIndex]) {
         clickedMap[currentIndex] = new Set();

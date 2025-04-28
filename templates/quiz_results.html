@@ -15,11 +15,8 @@
         <p>Your Score: <strong id="total-score" data-value="{{ total_score }}"></strong> out of <strong id="max-score" data-value="{{ max_score }}"></strong></p>
         <p>Thank you for participating in the quiz!</p>
 
-        <p>Here is some feedback based on your incorrect answers:</p>
-
         <div class="feedback-container">
-            <!-- Feedback will be populated by JavaScript -->
-            <div id="feedback-data" data-value='{{ feedback | safe }}'></div>
+            <!-- Feedback will be dynamically populated by JavaScript -->
         </div>
 
         <a href="/quiz/0" class="home-button">Restart Quiz</a>

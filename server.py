@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 import json
 import datetime
@@ -174,12 +173,37 @@ def quiz_results():
     global user_answers
     total_score = 0
     max_score = 0
+    feedback = []  # Store feedback for each question
+
+    # Calculate the score and generate feedback
     for i, quiz in enumerate(quizzes):
         correct_order = quiz["correct_order"]
         user_response = user_answers[i] if i < len(user_answers) else []
+        explanations = quiz["explanations"]
+        descriptors = quiz["descriptors"]  # Include descriptors for each question
+        question_feedback = []
+
         max_score += len(correct_order)
-        total_score += sum(1 for j in range(len(correct_order)) if j < len(user_response) and user_response[j] == correct_order[j])
-    return render_template("quiz_results.html", total_score=total_score, max_score=max_score)
+        for j in range(len(correct_order)):
+            feedback_item = {
+                "descriptor": descriptors[j],  # Add the descriptor (question prompt)
+                "user_answer": user_response[j] if j < len(user_response) else None,
+                "correct": user_response[j] == correct_order[j] if j < len(user_response) else False,
+                "explanation": explanations[j] if j < len(explanations) else None
+            }
+            if feedback_item["correct"]:
+                total_score += 1
+            question_feedback.append(feedback_item)
+
+        feedback.append(question_feedback)
+
+    # Render the results page with feedback
+    return render_template(
+        "quiz_results.html",
+        total_score=total_score,
+        max_score=max_score,
+        feedback=feedback # Pass feedback as JSON
+    )
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)

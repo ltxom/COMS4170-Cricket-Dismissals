@@ -1,15 +1,25 @@
 {% extends "layout.html" %}
 
 {% block content %}
-
     <link rel="stylesheet" href="/static/quiz.css">
+    <script type="text/javascript" src="{{ url_for('static', filename = 'quiz_results.js') }}"></script>
+
+    <script>
+        total_score = {{total_score}};
+        max_score = {{max_score}};
+        feedback = {{feedback|tojson}};
+    </script>
 
     <div class="results-container">
         <h1>Quiz Results</h1>
-        <p>Your Score: <strong>{{ total_score }}</strong> out of <strong>{{ max_score }}</strong></p>
+        <p>Your Score: <strong id="total-score" data-value="{{ total_score }}"></strong> out of <strong id="max-score" data-value="{{ max_score }}"></strong></p>
         <p>Thank you for participating in the quiz!</p>
-        <a href="/quiz" class="home-button">Restart Quiz</a>
+
+        <div class="feedback-container">
+            <!-- Feedback will be dynamically populated by JavaScript -->
+        </div>
+
+        <a href="/quiz/0" class="home-button">Restart Quiz</a>
         <a href="/" class="home-button">Go to Homepage</a>
     </div>
-
 {% endblock %}

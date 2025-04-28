@@ -127,6 +127,7 @@
     display: none!important;
 }
 
+/* Style for the results container */
 .results-container {
     text-align: center;
     margin-top: 50px;
@@ -145,6 +146,45 @@
     margin-bottom: 20px;
 }
 
+/* Style for the feedback container */
+.feedback-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap into two columns */
+    justify-content: space-between;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for each feedback box */
+.answer-feedback {
+    flex: 0 0 48%; /* Take up 48% of the width for two columns */
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 2px solid #9d9d9e; /* Match droppable area styling */
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    text-align: left; /* Left-align the content */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically align the text */
+}
+
+/* Style for explanations */
+.answer-feedback p {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+.answer-feedback p strong {
+    color: #444;
+}
+
+/* Style for the home and restart buttons */
 .home-button {
     display: inline-block;
     text-decoration: none;
@@ -153,11 +193,13 @@
     padding: 10px 20px;
     border-radius: 8px;
     font-size: 1.2rem;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin: 10px;
 }
 
 .home-button:hover {
     background-color: #003ecc;
+    transform: scale(1.05);
 }
 
 #exit-popup {

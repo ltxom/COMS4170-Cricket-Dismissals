@@ -5,6 +5,10 @@ function addDismissal(dismissal) {
     // Store the original parent (quiz-dismissals) for later use
     dismissalElement.data("originalParent", "#quiz-dismissals");
 
+    // Set the initial width of the dismissal to match the droppable area
+    const droppableWidth = $(".droppable-area").first().width(); // Assume all droppable areas have the same width
+    dismissalElement.css("width", droppableWidth); // Initialize the width
+
     // Make the dismissal draggable
     dismissalElement.draggable({
         revert: "invalid", // Revert if not dropped in a valid droppable area
@@ -33,7 +37,7 @@ function addDescriptor(descriptor, type) {
     // Make col1 a droppable area
     col1.droppable({
         accept: ".dismissal", // Accept only elements with the 'dismissal' class
-        drop: function(event, ui) {
+        drop: function (event, ui) {
             let droppedElement = ui.draggable; // Use the original dragged element
             let currentDroppable = $(this);
 
@@ -49,7 +53,11 @@ function addDescriptor(descriptor, type) {
             // Append the new dragged element to the droppable area
             currentDroppable.empty(); // Clear the droppable area
             currentDroppable.append(droppedElement);
-            droppedElement.css({ top: "0", left: "0" }); // Reset position
+            droppedElement.css({
+                top: "0",
+                left: "0",
+                width: currentDroppable.width() // Match the width of the droppable area
+            });
         }
     });
 

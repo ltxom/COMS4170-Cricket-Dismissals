@@ -7,22 +7,21 @@
     <script>
         let content = {{content|tojson}} 
     </script>
-    <div class="container">   
+
+    <br>
+
     <div class="row" >
         <div class="col-12 centered">
-            <h1>Cricket Quiz</h1>
+            <h1>Cricket Dismissals Quiz</h1>
         </div>
     </div>
     <div class="row" >
         <div class="col-12 centered">
-            <h2>Test your knowledge</h2>
+            <h4>Drag the dismissal to it's matching description</h4>
         </div>
     </div>
-    <div class="row" >
-        <div class="col-12 centered">
-            <h3>Drag the correct answer to the box</h3>
-        </div>
-    </div>
+    <br>
+    <br>
 
 
     <div class="row" id="">
@@ -41,9 +40,14 @@
         <!--New records go here-->
     </div>
 
-    <div id="quiz-container">
+    <div class="row" id="quiz-container">
         <!-- Existing quiz content -->
-        <button id="submit-quiz" class="submit-button">Submit</button>
+         <div class="col-md-10">
+         </div>
+         <div class="col-md-2">
+            <button id="submit-quiz" class="submit-button">Submit</button>
+        </div>
+        
     </div>
 
     <div id="error-popup" class="error-popup hidden">

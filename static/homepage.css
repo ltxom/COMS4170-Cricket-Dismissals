@@ -89,7 +89,8 @@
 }
 
 .main-heading {
-    font-size: 3rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3.5rem;
     margin-bottom: 1rem;
     font-weight: bold;
 }

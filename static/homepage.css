@@ -167,9 +167,9 @@
     justify-content: center;
 }
 
-.backgroundBase{
+/*.backgroundBase{
     background-color: #f4f8fb;
-}
+}*/
 .backgroundAccent {
     background-color: #2980b9;
 }
@@ -193,4 +193,5 @@ main{
     background-color: #fcfcfc !important; 
     color: #3d3d3d; 
 }*/
+
 

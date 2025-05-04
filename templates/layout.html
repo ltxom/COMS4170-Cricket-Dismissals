@@ -30,10 +30,10 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-link" href="/">Home</a>
-            <a class="nav-link" href="/overview">Cricket Overview</a>
-            <a class="nav-link" href="/dismissal">Dismissals</a>
-            <a class="nav-link" href="/quiz">Quiz</a>
+            <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">Home</a>
+            <a class="nav-link {% if request.path == '/overview' %}active{% endif %}" href="/overview">Cricket Overview</a>
+            <a class="nav-link {% if request.path.startswith('/dismissal') %}active{% endif %}" href="/dismissal">Dismissals</a>
+            <a class="nav-link {% if request.path == '/quiz' %}active{% endif %}" href="/quiz">Quiz</a>
         </div>
     </div>
 </nav>

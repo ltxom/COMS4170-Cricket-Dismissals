@@ -20,7 +20,7 @@
         padding: 1rem;
     }
     .sidebar h2 {
-        margin-top: 7px;
+        margin-top: 10px;
         margin-bottom: 20px;
     }
     .sidebar ul {
@@ -31,7 +31,15 @@
         margin: 0.5rem 0;
     }
     .sidebar li.visited a::before {
-        content: "✅ ";
+        content: "";
+        display: inline-block;
+        width: 16px;  
+        height: 16px;
+        background-image: url('{{ url_for("static", filename="images/check.png") }}');
+        background-size: contain;
+        background-repeat: no-repeat;
+        margin-right: 6px;
+        vertical-align: middle;
     }
     .sidebar li.active a {
         font-weight: bold;
@@ -87,6 +95,23 @@
         z-index: 5;
         transition: background-color 0.3s ease;
     }
+    .field-container iframe {
+    width: 100%;
+    height: 400px;
+    max-width: 100%;
+    border: none;
+}
+#clear-cookies-btn:hover {
+  background-color: #2471a3!important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
+.nextBtn{
+    background-color: #2980b9!important;
+}
+.sidebarItems{
+    color: #3d3d3d;
+}
 </style>
 
 <div class="dismissal-container">
@@ -95,13 +120,13 @@
         <ul id="dismissal-list">
             {% for item in unique_names %}
                 <li data-name="{{ item.name }}">
-                    <a href="{{ url_for('dismissal_page', id=item.id) }}">{{ item.name }}</a>
+                    <a href="{{ url_for('dismissal_page', id=item.id) }}" class="sidebarItems">{{ item.name }}</a>
                 </li>
             {% endfor %}
 
             <li>
-                <button id="clear-cookies-btn" class="debug-btn" style="background-color: #2980b9; color: white; padding: 10px;">
-                    Clear Dismissals Cookies
+                <button id="clear-cookies-btn" class="debug-btn" style="background-color: #2980b9; color: white; padding: 7px; width: 100%; border-radius: 20px; border: none; ">
+                    Reset
                 </button>
             </li>
         </ul>
@@ -109,7 +134,7 @@
     </aside>
 
     <main class="content">
-        <div class="overviewSlider">
+        <div class="dismissalSlider">
             <h1>{{ dismissal.display_name }}</h1>
 
             <div class="slide">
@@ -147,7 +172,7 @@
                 {% endif %}
                 {% if next_id %}
                     <a href="{{ url_for('dismissal_page', id=next_id) }}">
-                        <button>Next →</button>
+                        <button class="nextBtn">Next →</button>
                     </a>
                 {% elif dismissal.id == total %}
                     <a href="{{ url_for('startQuiz') }}">

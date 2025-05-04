@@ -1,7 +1,7 @@
 .transition-hero {
   width: 100%;
   height: 100vh;
-  background: linear-gradient(135deg, #f7f8fc, #eef2f7);
+/*  background: linear-gradient(135deg, #f7f8fc, #eef2f7);*/
   display: flex;
   justify-content: center;
   align-items: flex-start;

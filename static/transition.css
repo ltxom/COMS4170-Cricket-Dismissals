@@ -17,7 +17,7 @@
 
 
 .main-heading {
-  font-size: 4rem;
+  font-size: 3rem;
   margin-bottom: 1rem;
   font-weight: 700;
 }
@@ -70,7 +70,7 @@
   transform: translateY(-5px);
 }
 
-@keyframes fadeIn {
+/*@keyframes fadeIn {
   from {
     opacity: 0;
     transform: translateY(20px);
@@ -79,4 +79,4 @@
     opacity: 1;
     transform: translateY(0);
   }
-}
+}*/

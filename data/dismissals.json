@@ -1,66 +1,80 @@
 {
     "dismissals": [
-        {
-            "id": 1,
-            "name": "Bowled",
-            "description": "When the bowler delivers the ball and it hits the batter's stumps.",
-            "media": "media/bowled.gif"
-        },
-        {
-            "id": 2,
-            "name": "Caught",
-            "description": "If the batsman hits the ball, and the fielder catches it before it touches the ground.",
-            "media": "media/caught.gif"
-        },
-        {
-            "id": 3,
-            "name": "LBW",
-            "description": "If the ball hits any part of the batter's body (except the glove) and the umpire thinks it would have hit the stumps.",
-            "media": "media/lbw.gif",
-            "interactive": true
-        },
-        {
-            "id": 4,
-            "name": "Run Out",
-            "description": "When the batsman is attempting a run and a fielder hits the stumps with the ball before the batsman reaches the crease.",
-            "media": "media/run_out.webp",
-            "interactive": true
-        },
-        {
-            "id": 5,
-            "name": "Stumped",
-            "description": "If the batsman steps out of their crease and the wicketkeeper removes the bails with the ball.",
-            "media": "media/stumped.gif"
-        },
-        {
-            "id": 6,
-            "name": "Retired Out",
-            "description": "If a batsman leaves the field without the consent of the umpires, the batsman is declared \u201cRetired Out\u201d if he does not have the permission from the opposing team to resume.",
-            "media": "media/retired_out.png"
-        },
-        {
-            "id": 7,
-            "name": "Double Hit / Hit the Ball Twice",
-            "description": "When a batter hits the ball twice - first legally and the second time intentionally.",
-            "media": "media/double_hit.gif"
-        },
-        {
-            "id": 8,
-            "name": "Hit Wicket",
-            "description": "If the batsman while attempting to strike the ball or taking off for a run, hits the wicket and knocks the stumps off, he is given \u201cHit Wicket\u201d out.",
-            "media": "media/hit_wicket.gif"
-        },
-        {
-            "id": 9,
-            "name": "Obstructing the Field",
-            "description": "If a batsman by action or words, deliberately obstructs or distracts the fielding side, he is given out for obstructing the field. It is a very rare way of dismissal.",
-            "media": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/WtNnhPa_hbs?si=DaLI0uuHpwh9_7ki\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>"
-        },
-        {
-            "id": 10,
-            "name": "Timed Out",
-            "description": "When a new batsman is about to come in to bat, and he takes more than three minutes to enter the field, he\u2019s adjudged out. Same applied if a batsman willfully takes more than 3 minutes to face the next delivery or resume the play after an official drinks/meal break is over",
-            "media": "media/timed_out.jpg"
-        }
+      {
+        "id": 1,
+        "name": "Bowled",
+        "description": "When the bowler delivers the ball and it hits the batter's stumps.",
+        "media": "media/bowled.gif"
+      },
+      {
+        "id": 2,
+        "name": "Caught",
+        "description": "If the batsman hits the ball, and the fielder catches it before it touches the ground.",
+        "media": "media/caught.gif"
+      },
+      {
+        "id": 3,
+        "name": "LBW",
+        "part": 1,
+        "description": "If the ball hits any part of the batter's body and would have hit the stumps.",
+        "media": "media/lbw.gif"
+      },
+      {
+        "id": 4,
+        "name": "LBW",
+        "part": 2,
+        "description": "Try placing the ball to simulate LBW.",
+        "type": "interaction"
+      },
+      {
+        "id": 5,
+        "name": "Run Out",
+        "part": 1,
+        "description": "When the batsman is out of the crease and the fielder hits the stumps.",
+        "media": "media/run_out.webp"
+      },
+      {
+        "id": 6,
+        "name": "Run Out",
+        "part": 2,
+        "description": "Drag the batsman and simulate the dismissal.",
+        "type": "interaction"
+      },
+      {
+        "id": 7,
+        "name": "Stumped",
+        "description": "If the batsman steps out and the keeper removes the bails.",
+        "media": "media/stumped.gif"
+      },
+      {
+        "id": 8,
+        "name": "Retired Out",
+        "description": "If a batsman leaves the field without the consent of the umpires, the batsman is declared 'Retired Out' if he does not have the permission from the opposing team to resume.",
+        "media": "media/retired_out.png"
+      },
+      {
+        "id": 9,
+        "name": "Double Hit / Hit the Ball Twice",
+        "description": "When a batter hits the ball twice - first legally and the second time intentionally.",
+        "media": "media/double_hit.gif"
+      },
+      {
+        "id": 10,
+        "name": "Hit Wicket",
+        "description": "If the batsman while attempting to strike the ball or taking off for a run, hits the wicket and knocks the stumps off, he is given 'Hit Wicket' out.",
+        "media": "media/hit_wicket.gif"
+      },
+      {
+        "id": 11,
+        "name": "Obstructing the Field",
+        "description": "If a batsman by action or words, deliberately obstructs or distracts the fielding side, he is given out for obstructing the field. It is a very rare way of dismissal.",
+        "media": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/WtNnhPa_hbs?si=DaLI0uuHpwh9_7ki\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>"
+      },
+      {
+        "id": 12,
+        "name": "Timed Out",
+        "description": "When a new batsman is about to come in to bat, and he takes more than three minutes to enter the field, he is adjudged out. Same applied if a batsman willfully takes more than 3 minutes to face the next delivery or resume the play after an official drinks/meal break is over.",
+        "media": "media/timed_out.jpg"
+      }
     ]
-}
+  }

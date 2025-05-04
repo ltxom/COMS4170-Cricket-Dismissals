@@ -1,352 +1,300 @@
 {% extends "layout.html" %}
 {% block content %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='overview.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='overview.css') }}">
+<style>
+    .dismissal-container {
+        display: flex;
+        max-width: 1500px;
+        margin: 0 auto;
+        padding: 1rem;
+        box-sizing: border-box;
+    }
+    .field-container {
+        position: relative;
+        overflow: hidden;
+        max-width: 100%;
+        height: auto;
+    }
+    .sidebar {
+        width: 240px;
+        padding: 1rem;
+    }
+    .sidebar h2 {
+        margin-top: 7px;
+        margin-bottom: 20px;
+    }
+    .sidebar ul {
+        list-style: none;
+        padding: 0;
+    }
+    .sidebar li {
+        margin: 0.5rem 0;
+    }
+    .sidebar li.visited a::before {
+        content: "✅ ";
+    }
+    .sidebar li.active a {
+        font-weight: bold;
+    }
+    .content {
+        flex: 1;
+        padding: 1rem;
+    }
+    #lbw-feedback, #lbw-hint, #runout-feedback, #runout-hint {
+        margin-top: 20px;
+        display: none;
+        padding: 15px;
+        border-radius: 8px;
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+    #lbw-zone {
+        position: absolute;
+        top: 28%;
+        left: 50%;
+        width: 6.5%;
+        height: 17%;
+        z-index: 10;
+        opacity: 0;
+        background-color: rgba(0, 255, 0, 0.3);
+        border: 2px dashed green;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+    }
+    #drag-ball {
+        width: 50px;
+        cursor: grab;
+        position: absolute;
+        top: 75%;
+        left: 30%;
+        z-index: 20;
+    }
+    #batsman {
+        position: absolute;
+        top: 60%;
+        left: 85%;
+        width: 80px;
+        cursor: grab;
+        z-index: 10;
+    }
+    #crease-line {
+        position: absolute;
+        top: 0;
+        left: 86%;
+        width: 3px;
+        height: 100%;
+        background-color: transparent;
+        z-index: 5;
+        transition: background-color 0.3s ease;
+    }
+</style>
 
-    <style>
-        .dismissal-container {
-    display: flex;
-    max-width: 1500px;
-    margin: 0 auto;
-    padding: 1rem;
-    box-sizing: border-box;
-}
-        .sidebar {
-            width: 240px;
-            padding: 1rem;
-/*            border-right: 1px solid #ddd;*/
-        }
-        .sidebar h2 {
-            margin-top: 7px;
-            margin-bottom: 20px;
+<div class="dismissal-container">
+    <aside class="sidebar">
+        <h2>Dismissals</h2>
+        <ul id="dismissal-list">
+            {% for item in unique_names %}
+                <li data-name="{{ item.name }}">
+                    <a href="{{ url_for('dismissal_page', id=item.id) }}">{{ item.name }}</a>
+                </li>
+            {% endfor %}
 
-        }
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
-        .sidebar li {
-            margin: 0.5rem 0;
-        }
-        .sidebar li.visited a::before {
-            content: "✅ ";
-        }
-        .sidebar li.active a {
-            font-weight: bold;
-        }
-        .content {
-            flex: 1;
-            padding: 1rem;
-        }
-        #lbw-feedback, #lbw-hint, #runout-feedback, #runout-hint {
-            margin-top: 20px;
-            display: none;
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 1.2rem;
-            font-weight: 500;
-        }
-        #lbw-zone {
-            position: absolute;
-            top: 30%;
-            left: 50%;
-            width: 6.5%;
-            height: 17%;
-            z-index: 10;
-            opacity: 0;
-            background-color: rgba(0, 255, 0, 0.3);
-            border: 2px dashed green;
-            pointer-events: all;
-            transition: opacity 0.4s ease;
-        }
-
-        #drag-ball {
-            width: 50px;
-            cursor: grab;
-            position: absolute;
-            top: 75%;
-            left: 30%;
-            z-index: 20;
-        }
-
-        #batsman {
-            position: absolute;
-            top: 60%;
-            left: 85%;
-            width: 80px;
-            cursor: grab;
-            z-index: 10;
-        }
-
-        #crease-line {
-            position: absolute;
-            top: 0;
-            left: 86%;
-            width: 3px;
-            height: 100%;
-            background-color: transparent;
-            z-index: 5;
-            transition: background-color 0.3s ease;
-        }
-
-    </style>
-
-    <div class="dismissal-container">
-        <aside class="sidebar">
-            <h2>Dismissals</h2>
-            <ul id="dismissal-list">
-                {% for d in dismissals %}
-                    <li data-id="{{ d.id }}" data-name="{{ d.name }}">
-                        <a href="{{ url_for('dismissal_page', id=d.id) }}">{{ d.name }}</a>
-                    </li>
-                {% endfor %}
             <li>
                 <button id="clear-cookies-btn" class="debug-btn" style="background-color: #2980b9; color: white; padding: 10px;">
                     Clear Dismissals Cookies
                 </button>
             </li>
-            </ul>
-            <p id="progress"></p>
-        </aside>
+        </ul>
+        <p id="progress"></p>
+    </aside>
 
-        <main class="content">
-            <div class="overviewSlider">
-                <h1>{{ dismissal.name }}</h1>
+    <main class="content">
+        <div class="overviewSlider">
+            <h1>{{ dismissal.display_name }}</h1>
 
-                <div class="slider">
-                    <div class="slides" id="dismissalSlides">
-                        <!-- Always first slide: general dynamic content -->
-                        <div class="slide">
-                            <div class="field-container">
-                                {% if '<iframe' in dismissal.media %}
-                                    {{ dismissal.media | safe }}
-                                {% else %}
-                                    <img src="{{ url_for('static', filename=dismissal.media) }}" alt="{{ dismissal.name }}">
-                                {% endif %}
-                            </div>
-                            <div class="description">{{ dismissal.description }}</div>
-                        </div>
-
-                        <!-- Special second slides for LBW and Run Out -->
-                        {% if dismissal.name == "LBW" %}
-                            <div class="slide">
-                                <div class="field-container drop-target">
-                                    <img src="{{ url_for('static', filename='images/lbw_diagram.jpg') }}" class="img-fluid" alt="LBW Diagram">
-                                    <div id="lbw-zone"></div>
-                                    <img src="{{ url_for('static', filename='images/ball.png') }}" id="drag-ball" draggable="true">
-                                </div>
-                                <div class="description">
-                                    The batsman is attempting to swing at the incoming bowl.<br>
-                                    <strong>Where can you place the ball so the outcome is “leg before wicket”?</strong>
-                                </div>
-                                <div id="lbw-feedback" class="description">✅ Correct! The ball hit the leg in front of the stumps.</div>
-                                <div id="lbw-hint" class="description">⚠️ Try placing the ball where it would hit the batter’s leg.</div>
-                            </div>
-                        {% elif dismissal.name == "Run Out" %}
-                            <div class="slide">
-                                <div class="field-container run-out-field">
-                                    <img src="{{ url_for('static', filename='images/run_out_diagram.jpg') }}" class="img-fluid" alt="Run Out">
-                                    <div id="crease-line"></div>
-                                    <img src="{{ url_for('static', filename='images/batsman_lunging.jpg') }}" id="batsman" draggable="true">
-                                </div>
-                                <div class="description">
-                                    Drag the batsman to a place where they would be “run out” if the ball hits the stumps.
-                                </div>
-                                <div id="runout-feedback" class="description">✅ Correct! The batsman was out of the crease.</div>
-                                <div id="runout-hint" class="description">⚠️ Try dragging the batsman behind the crease line.</div>
-                            </div>
-                        {% endif %}
-                    </div>
-                </div>
-
-                <!-- Internal slider nav -->
-                {% if dismissal.name == "LBW" or dismissal.name == "Run Out" %}
-                    <div class="nav-buttons" style="margin-top: 1rem;">
-                        <button id="prevSlideBtn" class="secondary-button" disabled>Previous</button>
-                        <button id="nextSlideBtn">Next</button>
-                    </div>
-                {% endif %}
-
-                <!-- Dismissal nav -->
-                <div class="page-nav nav-buttons" style="margin-top: 2rem;">
-                    {% if dismissal.id == 1 %}
-                        <a href="{{ url_for('overview') }}">
-                            <button class="secondary-button">← Overview</button>
-                        </a>
-                    {% else %}
-                        <a href="{{ url_for('dismissal_page', id=dismissal.id - 1) }}">
-                            <button class="secondary-button">← Previous Dismissal</button>
-                        </a>
-                    {% endif %}
-
-                    {% if dismissal.id < total %}
-                        <a href="{{ url_for('dismissal_page', id=dismissal.id + 1) }}">
-                            <button>Next Dismissal →</button>
-                        </a>
-                    {% else %}
-                        <a href="{{ url_for('startQuiz') }}">
-                            <button>Take Quiz</button>
-                        </a>
+            <div class="slide">
+                <div class="field-container" id="field-container">
+                    {% if 'iframe' in dismissal.media %}
+                        {{ dismissal.media | safe }}
+                    {% elif dismissal.media %}
+                        <img src="{{ url_for('static', filename=dismissal.media) }}" alt="{{ dismissal.display_name }}">
+                    {% elif dismissal.type == 'interaction' and dismissal.name == 'LBW' %}
+                        <img src="{{ url_for('static', filename='images/lbw_diagram.jpg') }}" class="img-fluid" alt="LBW Diagram">
+                        <div id="lbw-zone"></div>
+                        <img src="{{ url_for('static', filename='images/ball.png') }}" id="drag-ball" draggable="false">
+                    {% elif dismissal.type == 'interaction' and dismissal.name == 'Run Out' %}
+                        <img src="{{ url_for('static', filename='images/run_out_diagram.jpg') }}" class="img-fluid" alt="Run Out">
+                        <div id="crease-line"></div>
+                        <img src="{{ url_for('static', filename='images/batsman_lunging.jpg') }}" id="batsman" draggable="false">
                     {% endif %}
                 </div>
+                <div class="description">{{ dismissal.description }}</div>
+                <div id="lbw-feedback" class="description">✅ Correct! The ball hit the leg in front of the stumps.</div>
+                <div id="lbw-hint" class="description">⚠️ Try placing the ball where it would hit the batter’s leg.</div>
+                <div id="runout-feedback" class="description">✅ Correct! The batsman was out of the crease.</div>
+                <div id="runout-hint" class="description">⚠️ Try dragging the batsman behind the crease line.</div>
             </div>
-        </main>
-    </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const clearBtn = document.getElementById('clear-cookies-btn');
-            clearBtn.addEventListener('click', function () {
-                // Clear cookies for all dismissals
-                const items = document.querySelectorAll('#dismissal-list li');
-                items.forEach(li => {
-                    const nm = li.dataset.name;
-                    document.cookie = encodeURIComponent(nm) + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-                });
+            <div class="page-nav nav-buttons" style="margin-top: 2rem;">
+                {% if prev_id %}
+                    <a href="{{ url_for('dismissal_page', id=prev_id) }}">
+                        <button class="secondary-button">← Previous</button>
+                    </a>
+                {% elif dismissal.id == 1 %}
+                    <a href="{{ url_for('overview') }}">
+                        <button class="secondary-button">← Overview</button>
+                    </a>
+                {% endif %}
+                {% if next_id %}
+                    <a href="{{ url_for('dismissal_page', id=next_id) }}">
+                        <button>Next →</button>
+                    </a>
+                {% elif dismissal.id == total %}
+                    <a href="{{ url_for('startQuiz') }}">
+                        <button>Take Quiz</button>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+</div>
 
-                // Also refresh the page to update sidebar
-                location.reload();
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function setupDrag(el, opts) {
+            let isDragging = false, offsetX = 0, offsetY = 0;
+            const bounds = document.getElementById('field-container').getBoundingClientRect();
+
+            el.addEventListener("mousedown", function (e) {
+                isDragging = true;
+                offsetX = e.clientX - el.getBoundingClientRect().left;
+                offsetY = e.clientY - el.getBoundingClientRect().top;
+                e.preventDefault();
             });
-            // --- Cookie management ---
-            function getCookie(name) {
-                return document.cookie
-                    .split('; ')
-                    .find(row => row.startsWith(encodeURIComponent(name) + '='))
-                    ?.split('=')[1];
-            }
-            function setCookie(name, value, days = 365) {
-                const expires = new Date(Date.now() + days * 864e5).toUTCString();
-                document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; expires=${expires}; path=/`;
-            }
 
-            const currentName = "{{ dismissal.name }}";
-            setCookie(currentName, true);
+            document.addEventListener("mousemove", function (e) {
+                if (!isDragging) return;
+                const x = e.clientX - bounds.left - offsetX;
+                const y = e.clientY - bounds.top - offsetY;
 
-            // --- Sidebar visited tracking ---
-            const items = document.querySelectorAll('#dismissal-list li');
-            let visited = 0;
-            items.forEach(li => {
-                const nm = li.dataset.name;
-                if (getCookie(nm) === 'true') {
-                    li.classList.add('visited');
-                    visited++;
-                }
-                if (parseInt(li.dataset.id) === {{ dismissal.id }}) {
-                    li.classList.add('active');
-                }
-            });
-            document.getElementById('progress').textContent = `Visited ${visited} of {{ total }} dismissals`;
-
-            // --- Inner slider setup ---
-            const slides = document.querySelectorAll('#dismissalSlides .slide');
-            let currentSlide = 0;
-
-            const prevBtn = document.getElementById('prevSlideBtn');
-            const nextBtn = document.getElementById('nextSlideBtn');
-
-            function updateSlider() {
-                slides.forEach((s, i) => {
-                    s.style.display = (i === currentSlide) ? 'block' : 'none';
-                });
-
-                if (currentSlide === 0) {
-                    prevBtn.disabled = true;
-                    prevBtn.classList.add('disabled');
-                    nextBtn.disabled = false;
-                    nextBtn.classList.remove('disabled');
-                } else if (currentSlide === 1) {
-                    prevBtn.disabled = false;
-                    prevBtn.classList.remove('disabled');
-                    nextBtn.disabled = true;
-                    nextBtn.classList.add('disabled');
-
-                    initializeInteractiveSlide();
-                }
-            }
-
-            prevBtn?.addEventListener('click', function () {
-                if (currentSlide > 0) {
-                    currentSlide--;
-                    updateSlider();
+                el.style.left = `${Math.max(0, Math.min(bounds.width - el.offsetWidth, x))}px`;
+                if (!opts.lockY) {
+                    el.style.top = `${Math.max(0, Math.min(bounds.height - el.offsetHeight, y))}px`;
                 }
             });
 
-            nextBtn?.addEventListener('click', function () {
-                if (currentSlide < slides.length - 1) {
-                    currentSlide++;
-                    updateSlider();
-                }
+            document.addEventListener("mouseup", function () {
+                isDragging = false;
+                opts.onDrop?.();
             });
+        }
 
-            updateSlider(); // Initialize view
+        // ----- LBW -----
+        const lbwBall = document.getElementById("drag-ball");
+        const lbwZone = document.getElementById("lbw-zone");
+        const lbwFeedback = document.getElementById("lbw-feedback");
+        const lbwHint = document.getElementById("lbw-hint");
 
-            // --- Interaction setup (only initialize once) ---
-            let interactionInitialized = false;
+        if (lbwBall && lbwZone) {
+            lbwZone.style.opacity = 0; // Hide zone initially
 
-            function initializeInteractiveSlide() {
-                if (interactionInitialized) return; // already done
-                interactionInitialized = true;
+            // Record initial position
+            const initialLeft = lbwBall.offsetLeft;
+            const initialTop = lbwBall.offsetTop;
 
-                // LBW interaction
-                const ball = document.getElementById('drag-ball');
-                const lbwZone = document.getElementById('lbw-zone');
-                const lbwFeedback = document.getElementById('lbw-feedback');
-                const lbwHint = document.getElementById('lbw-hint');
+            setupDrag(lbwBall, {
+                lockY: false,
+                onDrop: () => {
+                    const ballRect = lbwBall.getBoundingClientRect();
+                    const zoneRect = lbwZone.getBoundingClientRect();
+                    const fieldRect = document.getElementById("field-container").getBoundingClientRect();
 
-                if (ball && lbwZone) {
-                    console.log("A");
-                    ball.addEventListener("dragstart", e => e.dataTransfer.setData("text/plain", "ball"));
-                    lbwZone.addEventListener("dragover", e => e.preventDefault());
-                    lbwZone.addEventListener("drop", function (e) {
-                        e.preventDefault();
+                    const inZone =
+                        ballRect.left < zoneRect.right &&
+                        ballRect.right > zoneRect.left &&
+                        ballRect.top < zoneRect.bottom &&
+                        ballRect.bottom > zoneRect.top;
+
+                    if (inZone) {
                         lbwZone.style.opacity = 1;
+                        lbwBall.style.left = `${zoneRect.left - fieldRect.left}px`;
+                        lbwBall.style.top = `${zoneRect.top - fieldRect.top}px`;
+                        lbwBall.style.cursor = "default";
                         lbwFeedback.style.display = "block";
                         lbwHint.style.display = "none";
-
-                        const zoneRect = lbwZone.getBoundingClientRect();
-                        const parentRect = lbwZone.parentElement.getBoundingClientRect();
-
-                        ball.style.left = (zoneRect.left - parentRect.left + zoneRect.width / 2 - ball.offsetWidth / 2) + "px";
-                        ball.style.top = (zoneRect.top - parentRect.top + zoneRect.height / 2 - ball.offsetHeight / 2) + "px";
-
-                        lbwFeedback.scrollIntoView({ behavior: "smooth" });
-                    });
-
-                    ball.addEventListener("dragend", function (e) {
-                        const zoneRect = lbwZone.getBoundingClientRect();
-                        const mouseX = e.clientX, mouseY = e.clientY;
-                        const inZone = mouseX >= zoneRect.left && mouseX <= zoneRect.right && mouseY >= zoneRect.top && mouseY <= zoneRect.bottom;
-                        if (!inZone) lbwHint.style.display = "block";
-                    });
+                    } else {
+                        // Reset to initial position
+                        lbwBall.style.left = `${initialLeft}px`;
+                        lbwBall.style.top = `${initialTop}px`;
+                        lbwHint.style.display = "block";
+                        lbwFeedback.style.display = "none";
+                    }
                 }
+            });
+        }
 
-                // Run Out interaction
-                const batsman = document.getElementById("batsman");
-                const crease = document.getElementById("crease-line");
-                const runoutFeedback = document.getElementById("runout-feedback");
-                const runoutHint = document.getElementById("runout-hint");
 
-                if (batsman && crease) {
-                    let offsetX = 0;
-                    batsman.addEventListener("dragstart", e => offsetX = e.offsetX);
-                    batsman.addEventListener("dragend", function (e) {
-                        const parentRect = batsman.parentElement.getBoundingClientRect();
-                        const creaseX = crease.getBoundingClientRect().left - parentRect.left;
-                        const newLeft = e.clientX - parentRect.left - offsetX;
-                        batsman.style.left = `${newLeft}px`;
 
-                        const batsmanRight = newLeft + batsman.offsetWidth;
-                        if (batsmanRight < creaseX) {
-                            crease.style.backgroundColor = 'green';
-                            runoutFeedback.style.display = "block";
-                            runoutHint.style.display = "none";
-                        } else {
-                            runoutFeedback.style.display = "none";
-                            runoutHint.style.display = "block";
-                        }
-                    });
+
+        const batsman = document.getElementById("batsman");
+        const creaseLine = document.getElementById("crease-line");
+        const runoutFeedback = document.getElementById("runout-feedback");
+        const runoutHint = document.getElementById("runout-hint");
+
+        if (batsman && creaseLine) {
+            creaseLine.style.backgroundColor = "transparent";
+            setupDrag(batsman, {
+                lockY: true,
+                onDrop: () => {
+                    const batRect = batsman.getBoundingClientRect();
+                    const creaseRect = creaseLine.getBoundingClientRect();
+                    if (batRect.right < creaseRect.left) {
+                        creaseLine.style.backgroundColor = "red";
+                        runoutFeedback.style.display = "block";
+                        runoutHint.style.display = "none";
+                    } else {
+                        runoutHint.style.display = "block";
+                        runoutFeedback.style.display = "none";
+                    }
                 }
+            });
+        }
+
+        const clearBtn = document.getElementById('clear-cookies-btn');
+        clearBtn?.addEventListener('click', function () {
+            document.querySelectorAll('#dismissal-list li').forEach(li => {
+                const nm = li.dataset.name;
+                document.cookie = encodeURIComponent(nm) + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            });
+            location.reload();
+        });
+
+        function getCookie(name) {
+            return document.cookie.split('; ').find(row => row.startsWith(encodeURIComponent(name) + '='))?.split('=')[1];
+        }
+
+        function setCookie(name, value, days = 365) {
+            const expires = new Date(Date.now() + days * 864e5).toUTCString();
+            document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; expires=${expires}; path=/`;
+        }
+
+        const currentName = "{{ dismissal.name }}";
+        setCookie(currentName, true);
+
+        const uniqueNames = {{ unique_names | tojson }};
+        let visited = 0;
+        uniqueNames.forEach(name => {
+            const li = document.querySelector(`li[data-name="${name.name}"]`);
+            if (getCookie(name.name) === 'true') {
+                li?.classList.add('visited');
+                visited++;
+            }
+            if (name.name === currentName) {
+                li?.classList.add('active');
             }
         });
-    </script>
 
+        document.getElementById('progress').textContent = `Visited ${visited} of {{ total_unique }} dismissals`;
+    });
+</script>
 {% endblock %}

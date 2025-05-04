@@ -210,13 +210,13 @@
 
 .results-container h1 {
     font-size: 2.5rem;
-    color: #144aff;
+    color: #3d3d3d;
     margin-bottom: 20px;
 }
 
 .results-container p {
     font-size: 1.25rem;
-    color: #333;
+    color: #3d3d3d;
     margin-bottom: 20px;
 }
 
@@ -251,7 +251,7 @@
 .answer-feedback p {
     margin: 5px 0;
     font-size: 1rem;
-    color: #333;
+    color: #3d3d3d;
 }
 
 .answer-feedback p strong {
@@ -262,7 +262,7 @@
 .home-button {
     display: inline-block;
     text-decoration: none;
-    background-color: #144aff;
+    background-color: #2980b9;
     color: white;
     padding: 10px 20px;
     border-radius: 8px;
@@ -293,6 +293,7 @@
     background-color: white;
     padding: 20px;
     border-radius: 8px;
+    color: #3d3d3d;
     text-align: center;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
@@ -306,13 +307,13 @@
 }
 
 #confirm-exit {
-    background-color: #144aff;
-    color: white;
+    background-color: #ccc;
+    color: black;
 }
 
 #cancel-exit {
-    background-color: #ccc;
-    color: black;
+    background-color: #2980b9;
+    color: white;
 }
 
 .submit-container {

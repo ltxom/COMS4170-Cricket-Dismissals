@@ -239,6 +239,7 @@ def quiz_results():
                 "descriptor": descriptors[j],
                 "user_answer": user_response[j] if j < len(user_response) else None,
                 "correct": user_response[j] == correct_order[j] if j < len(user_response) else False,
+                "correct_answer": correct_order[j],
                 "explanation": explanations[j] if j < len(explanations) else None
             }
             if feedback_item["correct"]:

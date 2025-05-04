@@ -3,30 +3,37 @@ $(function () {
     $("#total-score").text(total_score);
     $("#max-score").text(max_score);
 
-    // Populate the feedback
     const $feedbackContainer = $(".feedback-container");
-    let hasIncorrectAnswers = false; // Track if there are any incorrect answers
+    let hasIncorrectAnswers = false;
 
     feedback.forEach((questionFeedback, questionIndex) => {
         questionFeedback.forEach((answer) => {
             if (!answer.correct) {
-                hasIncorrectAnswers = true; // Mark that there is at least one incorrect answer
+                hasIncorrectAnswers = true;
 
-                // Create a feedback box for the incorrect answer
                 const $answerDiv = $("<div></div>").addClass("answer-feedback");
 
-                // Add the explanation for the incorrect answer
-                const $explanation = $("<p></p>").html(answer.explanation);
-                $answerDiv.append($explanation);
+                // Display the descriptor (question)
+                const descriptorText = typeof answer.descriptor === 'string' && answer.descriptor.includes("static")
+                  ? `<img src="${answer.descriptor}" alt="Descriptor" class="descriptor-gif">`
+                  : `<p><strong>Description:</strong> ${answer.descriptor}</p>`;
+                $answerDiv.append(descriptorText);
 
-                // Append the feedback box to the container
+                // Display user's answer
+                $answerDiv.append(`<p><strong>Your Answer:</strong> ${answer.user_answer}</p>`);
+
+                // Display correct answer
+                $answerDiv.append(`<p><strong>Correct Answer:</strong> ${answer.correct ? "✔️" : answer.correct_answer || "Not Provided"}</p>`);
+
+                // Explanation
+                $answerDiv.append(`<p><strong>Explanation:</strong> ${answer.explanation}</p>`);
+
                 $feedbackContainer.append($answerDiv);
             }
         });
     });
 
-    // If all answers are correct, hide the feedback section
     if (!hasIncorrectAnswers) {
-        $feedbackContainer.remove(); // Remove the feedback container
+        $feedbackContainer.remove();
     }
 });

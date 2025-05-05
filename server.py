@@ -169,8 +169,8 @@ quizzes = [
         'descriptor_type': 'text',
         'dismissals': ['LBW', 'hit wicket', 'timed out'],
         'explanations': [
-            'The batsman is out LBW if the ball hits his leg and would have gone on to hit the stumps.',
             'The batsman is out timed out if he does not arrive at the crease within 3 minutes of the previous batsman being dismissed.',
+            'The batsman is out LBW if the ball hits his leg and would have gone on to hit the stumps.',
             'The batsman is out hit wicket if he knocks the stumps off while attempting to hit the ball.'
         ],
         'descriptors': [
@@ -184,9 +184,10 @@ quizzes = [
         'descriptor_type': 'images',
         'dismissals': ['run out', 'bowled', 'caught'],
         'explanations': [
-            'The batsman is out run out if the fielder hits the stumps with the ball before the batsman reaches the crease.',
             'The batsman is out bowled if the ball hits the stumps and dislodges the bails.',
-            'The batsman is out caught if the fielder catches the ball before it hits the ground.'
+            'The batsman is out caught if the fielder catches the ball before it hits the ground.',
+            'The batsman is out run out if the fielder hits the stumps with the ball before the batsman reaches the crease.'
+            
         ],
         'descriptors': [
             'static/gifs/bowled.gif',

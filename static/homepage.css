@@ -62,7 +62,7 @@
 
 .navbar {
     padding: 1rem;
-    background-color: white !important;
+    background-color: white!important;
 }
 
 .navbar .navbar-nav .nav-link {
@@ -101,7 +101,7 @@
 }
 
 .tagline {
-    font-family: sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 1.25rem;
     margin-bottom: 1.5rem;
     color: #8a8a8a;
@@ -144,6 +144,7 @@
     justify-content: center;
     align-items: center;
     padding: 2rem;
+    padding-left: 0rem;
     color: #333;
     font-family: 'Poppins', sans-serif;
 }

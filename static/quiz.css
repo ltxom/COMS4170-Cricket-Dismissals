@@ -66,6 +66,7 @@
     text-align: center;
     transition: background-color 0.3s ease, transform 0.2s ease;
     color: #3d3d3d;
+    font-family: 'Poppins', sans-serif;
 }
 
 .dismissal:hover {
@@ -126,6 +127,8 @@
 }
 .centered{
     padding-left: 0;
+    font-family: 'Poppins', sans-serif;
+
 }
 .nav-buttons button:hover {
     background-color: #0e3fdc;
@@ -333,4 +336,6 @@
 }
 .descriptor{
     color: #3d3d3d!important;
+    font-family: 'Poppins', sans-serif;
+    
 }

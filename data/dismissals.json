@@ -16,7 +16,7 @@
         "id": 3,
         "name": "LBW",
         "part": 1,
-        "description": "If the ball hits any part of the batter's body and would have hit the stumps.",
+        "description": "When the ball hits any part of the batter's body (usually the legs or pads) without hitting the bat, and it would have gone on to hit the stumps.",
         "media": "media/lbw.gif"
       },
       {
@@ -30,7 +30,7 @@
         "id": 5,
         "name": "Run Out",
         "part": 1,
-        "description": "When the batsman is out of the crease and the fielder hits the stumps.",
+        "description": "When the batsman is out of the crease line and the fielder hits the stumps.",
         "media": "media/run_out.webp"
       },
       {
@@ -43,7 +43,7 @@
       {
         "id": 7,
         "name": "Stumped",
-        "description": "If the batsman steps out and the keeper removes the bails.",
+        "description": "When the batter steps out of their crease to play a shot, misses the ball, and the wicketkeeper quickly removes the bails before they can return.",
         "media": "media/stumped.gif"
       },
       {

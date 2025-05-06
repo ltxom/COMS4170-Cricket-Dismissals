@@ -16,7 +16,7 @@ $(function () {
                 // Display the descriptor (question)
                 const descriptorText = typeof answer.descriptor === 'string' && answer.descriptor.includes("static")
                   ? `<img src="${answer.descriptor}" alt="Descriptor" class="descriptor-gif">`
-                  : `<p><strong>Description:</strong> ${answer.descriptor}</p>`;
+                  : `<p><strong>Question:</strong> ${answer.descriptor}</p>`;
                 $answerDiv.append(descriptorText);
 
                 // Display user's answer

@@ -212,7 +212,6 @@
     document.addEventListener("DOMContentLoaded", function () {
         function setupDrag(el, opts) {
             let isDragging = false, offsetX = 0, offsetY = 0;
-            const bounds = document.getElementById('field-container').getBoundingClientRect();
 
             el.addEventListener("mousedown", function (e) {
                 isDragging = true;
@@ -223,6 +222,7 @@
 
             document.addEventListener("mousemove", function (e) {
                 if (!isDragging) return;
+                const bounds = document.getElementById('field-container').getBoundingClientRect();
                 const x = e.clientX - bounds.left - offsetX;
                 const y = e.clientY - bounds.top - offsetY;
 

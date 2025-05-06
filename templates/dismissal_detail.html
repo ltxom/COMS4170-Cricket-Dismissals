@@ -112,11 +112,28 @@
 .sidebarItems{
     color: #3d3d3d;
 }
+.dismissalName {
+    padding-left: 30px;
+}
+.darkGrey{
+    color: #3d3d3d!important;
+}
+#progress {
+    color: #3d3d3d!important;
+}
+#takeQuiz {
+    background-color: #2980b9!important;
+}
+#takeQuiz:hover {
+  background-color: #2471a3!important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
 </style>
 
 <div class="dismissal-container">
     <aside class="sidebar">
-        <h2>Dismissals</h2>
+        <h2 class="darkGrey">Dismissals</h2>
         <ul id="dismissal-list">
             {% for item in unique_names %}
                 <li data-name="{{ item.name }}">
@@ -135,7 +152,7 @@
 
     <main class="content">
         <div class="dismissalSlider">
-            <h1>{{ dismissal.display_name }}</h1>
+            <h1 class="dismissalName darkGrey">{{ dismissal.display_name }}</h1>
 
             <div class="slide">
                 <div class="field-container" id="field-container">
@@ -153,7 +170,7 @@
                         <img src="{{ url_for('static', filename='images/batsman_lunging.jpg') }}" id="batsman" draggable="false">
                     {% endif %}
                 </div>
-                <div class="description">{{ dismissal.description }}</div>
+                <div class="description darkGrey">{{ dismissal.description }}</div>
                 <div id="lbw-feedback" class="description">✅ Correct! The ball hit the leg in front of the stumps.</div>
                 <div id="lbw-hint" class="description">⚠️ Try placing the ball where it would hit the batter’s leg.</div>
                 <div id="runout-feedback" class="description">✅ Correct! The batsman was out of the crease.</div>
@@ -176,7 +193,7 @@
                     </a>
                 {% elif dismissal.id == total %}
                     <a href="{{ url_for('startQuiz') }}">
-                        <button>Take Quiz</button>
+                        <button id="takeQuiz">Take Quiz</button>
                     </a>
                 {% endif %}
             </div>

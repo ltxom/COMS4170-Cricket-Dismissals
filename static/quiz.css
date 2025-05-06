@@ -123,7 +123,9 @@
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
-
+.centered{
+    padding-left: 0;
+}
 .nav-buttons button:hover {
     background-color: #0e3fdc;
     transform: scale(1.05);
@@ -235,16 +237,19 @@
 /* Style for each feedback box */
 .answer-feedback {
     flex: 0 0 48%; /* Take up 48% of the width for two columns */
-    margin-bottom: 20px;
-    padding: 15px;
+    margin-bottom: 24px;
+    padding: 20px;
     border: 2px solid #9d9d9e; /* Match droppable area styling */
-    border-radius: 8px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    background-color: #e8f0f6;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
     text-align: left; /* Left-align the content */
     display: flex;
     flex-direction: column;
     justify-content: center; /* Vertically align the text */
+    border: 1px solid #c8ddeb;
+    gap: 7px;
+    transition: transform 0.3s ease;
 }
 
 /* Style for explanations */
@@ -272,8 +277,9 @@
 }
 
 .home-button:hover {
-    background-color: #003ecc;
+    background-color: #2471a3;
     transform: scale(1.05);
+    color: white;
 }
 
 #exit-popup {

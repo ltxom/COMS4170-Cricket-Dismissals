@@ -24,9 +24,11 @@
                         {% endif %}
                     </div>
                     <div class="description darkGrey">
-                        {% for line in slide.description %}
-                        <p>{{ line }}</p>
-                        {% endfor %}
+                        <ul class="description-list">
+                            {% for line in slide.description %}
+                            <li>{{ line }}</li>
+                            {% endfor %}
+                        </ul>
                     </div>
                 </div>
                 {% endfor %}

@@ -178,7 +178,7 @@ quizzes = [
             'Batsman left the field and did not return',
             'Batsman hit the ball twice'
         ],
-        'correct_order': ['timed out', 'LBW', 'hit wicket']
+        'correct_order': ['stumped', 'retired', 'double hit']
     },
     {
         'descriptor_type': 'text',

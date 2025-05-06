@@ -167,6 +167,21 @@ def startQuiz():
 quizzes = [
     {
         'descriptor_type': 'text',
+        'dismissals': ['stumped', 'retired', 'double hit'],
+        'explanations': [
+            'The batsman is out stumped if he steps out of the crease and the wicketkeeper dislodges the bails.',
+            'The batsman is out retired if he leaves the field and does not return.',
+            'The batsman is out double hit if he hits the ball twice.'
+        ],
+        'descriptors': [
+            'Batsman stepped out of the crease and the wicketkeeper dislodged the bails',
+            'Batsman left the field and did not return',
+            'Batsman hit the ball twice'
+        ],
+        'correct_order': ['timed out', 'LBW', 'hit wicket']
+    },
+    {
+        'descriptor_type': 'text',
         'dismissals': ['LBW', 'hit wicket', 'timed out'],
         'explanations': [
             'The batsman is out timed out if he does not arrive at the crease within 3 minutes of the previous batsman being dismissed.',

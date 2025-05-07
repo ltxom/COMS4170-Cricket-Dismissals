@@ -31,10 +31,10 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">Home</a>
-            <a class="nav-link {% if request.path == '/overview' %}active{% endif %}" href="/overview">Cricket Overview</a>
-            <a class="nav-link {% if request.path.startswith('/dismissal') %}active{% endif %}" href="/dismissal">Dismissals</a>
-            <a class="nav-link {% if request.path == '/quiz' %}active{% endif %}" href="/quiz">Quiz</a>
+            <a class="nav-link {% if request.path == '/' %}{% endif %}" href="/">Home</a>
+            <a class="nav-link {% if request.path == '/overview' %}{% endif %}" href="/overview">Cricket Overview</a>
+            <a class="nav-link {% if request.path.startswith('/dismissal') %}{% endif %}" href="/dismissal">Dismissals</a>
+            <a class="nav-link {% if request.path == '/quiz' %}{% endif %}" href="/quiz">Quiz</a>
         </div>
     </div>
 </nav>
@@ -44,11 +44,6 @@
         {% endblock %}
     </div>
 
-<!-- <footer class="bg-body-tertiary text-center text-lg-start footerStyle">
-  <div class="text-center p-3">
-    © 2025 Cricket Dismissals
-  </div>
-</footer> -->
 </body>
 
 </html>

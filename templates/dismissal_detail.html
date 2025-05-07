@@ -248,8 +248,30 @@
             lbwZone.style.opacity = 0; // Hide zone initially
 
             // Record initial position
-            const initialLeft = lbwBall.offsetLeft;
-            const initialTop = lbwBall.offsetTop;
+            let initialLeft = 0;
+            let initialTop = 0;
+
+            function calculateInitialBallPosition() {
+                const field = document.getElementById("field-container");
+                const ballRect = lbwBall.getBoundingClientRect();
+                const fieldRect = field.getBoundingClientRect();
+                initialLeft = ballRect.left - fieldRect.left;
+                initialTop = ballRect.top - fieldRect.top;
+            }
+
+            // If image is already loaded, compute right away
+            const lbwImg = document.querySelector('img[alt="LBW Diagram"]');
+            if (lbwImg && lbwImg.complete) {
+                calculateInitialBallPosition();
+            } else if (lbwImg) {
+                lbwImg.addEventListener("load", calculateInitialBallPosition);
+            } else {
+                // fallback
+                requestAnimationFrame(calculateInitialBallPosition);
+            }
+
+
+
 
             setupDrag(lbwBall, {
                 lockY: false,

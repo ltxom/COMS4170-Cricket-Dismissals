@@ -1,24 +1,25 @@
-function addDismissal(dismissal) {
+function addDismissal(dismissal, index, quizIndex) {
     let row = $("<div class='row'></div>");
+
+    let numberCol = $("<div class='quiz-number'></div>").text(`${quizIndex + 1}.${index + 1}`);
     let dismissalElement = $("<div class='dismissal'></div>").text(dismissal);
 
-    // Store the original parent (quiz-dismissals) for later use
     dismissalElement.data("originalParent", "#quiz-dismissals");
 
-    // Set the initial width of the dismissal to match the droppable area
-    const droppableWidth = $(".droppable-area").first().width(); // Assume all droppable areas have the same width
-    dismissalElement.css("width", droppableWidth); // Initialize the width
+    const droppableWidth = $(".droppable-area").first().width();
+    dismissalElement.css("width", droppableWidth);
 
-    // Make the dismissal draggable
     dismissalElement.draggable({
-        revert: "invalid", // Revert if not dropped in a valid droppable area
-        cursor: "move",    // Change the cursor to indicate dragging
-        zIndex: 1000       // Ensure the dragged element stays in the foreground
+        revert: "invalid",
+        cursor: "move",
+        zIndex: 1000
     });
 
+    row.append(numberCol);
     row.append(dismissalElement);
     $("#quiz-dismissals").append(row);
 }
+
 
 function addDescriptor(descriptor, type) {
     let row = $("<div class='row'></div>");
@@ -66,9 +67,9 @@ function addDescriptor(descriptor, type) {
     $("#quiz-descriptors").append(row);
 }
 
-function populate_quiz_page(content) {
+function populate_quiz_page(content, quizIndex) {
     content.dismissals.forEach(function(dismissal, i) {
-        addDismissal(dismissal);
+        addDismissal(dismissal, i, quizIndex);
     });
 
     content.descriptors.forEach(function(descriptor, i) {
@@ -84,7 +85,7 @@ $(function () {
     $("#quiz-dismissals").empty();
     $("#quiz-descriptors").empty();
 
-    populate_quiz_page(content);
+    populate_quiz_page(content, content.quiz_index);
 
     // Set quizInProgress to true when the user interacts with the quiz
     $(document).on("dragstart", ".dismissal", function () {
@@ -146,10 +147,11 @@ $(function () {
             success: function (response) {
                 if (response.next_quiz) {
                     // Load the next quiz
-                    content = response.next_quiz;
+                    let content = response.next_quiz;
+                    const quizIndex = response.quiz_index;
                     $("#quiz-dismissals").empty();
                     $("#quiz-descriptors").empty();
-                    populate_quiz_page(content);
+                    populate_quiz_page(content, quizIndex);
                 } else {
                     // Redirect to the results page
                     window.location.href = "/quiz-results";

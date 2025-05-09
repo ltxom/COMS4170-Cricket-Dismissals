@@ -217,11 +217,13 @@ current_quiz_index = 0
 user_answers = []
 
 @app.route('/quiz')
-def quiz(quiz=quizzes[0]):
+def quiz():
     global current_quiz_index, user_answers
     current_quiz_index = 0
     user_answers = []
-    return render_template("quiz.html", content=quizzes[current_quiz_index])
+    content = quizzes[current_quiz_index]
+    content["quiz_index"] = current_quiz_index
+    return render_template("quiz.html", content=content)
 
 @app.route("/submit-quiz", methods=["POST"])
 def submit_quiz():
@@ -229,9 +231,14 @@ def submit_quiz():
     data = request.json
     answers = data.get("answers", [])
     user_answers.append(answers)
+
     if current_quiz_index < len(quizzes) - 1:
         current_quiz_index += 1
-        return jsonify({"next_quiz": quizzes[current_quiz_index]})
+        next_quiz = quizzes[current_quiz_index]
+        return jsonify({
+            "next_quiz": next_quiz,
+            "quiz_index": current_quiz_index
+        })
     else:
         return jsonify({"next_quiz": None})
 
@@ -252,6 +259,7 @@ def quiz_results():
         max_score += len(correct_order)
         for j in range(len(correct_order)):
             feedback_item = {
+                "number": f"{i+1}.{j+1}",
                 "descriptor": descriptors[j],
                 "user_answer": user_response[j] if j < len(user_response) else None,
                 "correct": user_response[j] == correct_order[j] if j < len(user_response) else False,

@@ -55,7 +55,7 @@
     color: #fff;
     padding: 5px 10px;
     border-radius: 6px;
-    font-size: 20px;
+    font-size: 25px;
     white-space: nowrap;
     pointer-events: none;
     transform: translate(-50%, -130%);
@@ -154,7 +154,7 @@
 
 .scaledWrapper {
     position: absolute;
-    transform: scale(0.90); 
+    transform: scale(0.70); 
     transform-origin: top center;
     width: 100%;
 }
@@ -185,7 +185,7 @@ text-align: center;
 }
 
 
-#prevBtn {
+/*#prevBtn {
     padding: 8px 12px;
     font-size: 0.8rem;
     background-color: #144aff;
@@ -195,6 +195,7 @@ text-align: center;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+*/
 
 .description p {
     font-size: 1.3rem; /* Adjust the font size as needed */
@@ -210,6 +211,9 @@ text-align: center;
 }
 #nextBtn{
 font-size: 1.5rem;
+}
+#prevBtn{
+font-size: 1.3rem;
 }
 #nextBtn:disabled {
     background-color: #a6c8e5 !important; 

@@ -218,3 +218,27 @@ font-size: 1.3rem;
 #nextBtn:disabled {
     background-color: #a6c8e5 !important; 
 }
+
+
+/* --- Scoped adjustments for dismissal pages only --- */
+.dismissal-page .dismissal-container {
+    transform: scale(0.95);
+    transform-origin: top center;
+}
+
+.dismissal-page .field-container {
+    padding: 0.5rem;
+    max-height: 65vh;
+}
+
+.dismissal-page .overviewHeader {
+    font-size: 2rem;
+    padding-top: 10px;
+    margin-bottom: 20px;
+}
+
+.dismissal-page .slide img {
+    width: 100%;
+    max-height: 50vh;
+    object-fit: contain;
+}

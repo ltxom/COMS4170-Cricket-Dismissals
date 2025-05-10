@@ -29,8 +29,10 @@ function addDescriptor(descriptor, type) {
     let descriptor_class = '';
     if (type == 'images') {
         descriptor_class = $("<img class='descriptor-gif'>").attr("src", descriptor).attr("alt", "Descriptor GIF");
+        $('#instruction').text("Drag the dismissal to it's matching gif")
     } else {
         descriptor_class = $("<div class='descriptor'></div>").text(descriptor);
+        $('#instruction').text("Drag the dismissal to it's matching descriptor")
     }
 
     col2.append(descriptor_class);

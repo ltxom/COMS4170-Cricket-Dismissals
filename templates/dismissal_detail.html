@@ -114,7 +114,7 @@
     background-color: #2980b9!important;
     }
     .sidebarItems{
-        color: #3d3d3d;
+        color: #2980b9;
     }
     .dismissalName {
         padding-left: 30px;
@@ -147,12 +147,6 @@
                     <a href="{{ url_for('dismissal_page', id=item.id) }}" class="sidebarItems">{{ item.name }}</a>
                 </li>
             {% endfor %}
-
-            <li>
-                <button id="clear-cookies-btn" class="debug-btn" style="background-color: #2980b9; color: white; padding: 7px; width: 100%; border-radius: 20px; border: none; ">
-                    Reset
-                </button>
-            </li>
         </ul>
         <p id="progress"></p>
     </aside>
@@ -248,8 +242,30 @@
             lbwZone.style.opacity = 0; // Hide zone initially
 
             // Record initial position
-            const initialLeft = lbwBall.offsetLeft;
-            const initialTop = lbwBall.offsetTop;
+            let initialLeft = 0;
+            let initialTop = 0;
+
+            function calculateInitialBallPosition() {
+                const field = document.getElementById("field-container");
+                const ballRect = lbwBall.getBoundingClientRect();
+                const fieldRect = field.getBoundingClientRect();
+                initialLeft = ballRect.left - fieldRect.left;
+                initialTop = ballRect.top - fieldRect.top;
+            }
+
+            // If image is already loaded, compute right away
+            const lbwImg = document.querySelector('img[alt="LBW Diagram"]');
+            if (lbwImg && lbwImg.complete) {
+                calculateInitialBallPosition();
+            } else if (lbwImg) {
+                lbwImg.addEventListener("load", calculateInitialBallPosition);
+            } else {
+                // fallback
+                requestAnimationFrame(calculateInitialBallPosition);
+            }
+
+
+
 
             setupDrag(lbwBall, {
                 lockY: false,

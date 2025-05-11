@@ -167,6 +167,7 @@
 
 .descriptionImage {
 text-align: center;
+font-size: 1rem;
 }
 
 .nav-buttons button:disabled {

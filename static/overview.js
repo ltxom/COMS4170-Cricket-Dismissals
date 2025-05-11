@@ -68,8 +68,8 @@ function showLabel(button, position) {
     const rect = button.getBoundingClientRect();
     const container = document.querySelector(".field-container").getBoundingClientRect();
 
-    const top = (rect.top - container.top)/0.7;
-    const left = (rect.left - container.left)/0.7;
+    const top = (rect.top - container.top)/0.68;
+    const left = (rect.left - container.left)/0.68;
 
     tooltip.style.top = `${top}px`;
     tooltip.style.left = `${left}px`;

@@ -11,7 +11,7 @@ cricket_overview = {
         "image": "static/images/wicket.JPG",
         "hotspots": [
             {"top": "54%", "left": "32%", "label": "Stumps"},
-            {"top": "38%", "left": "33%", "label": "Bails"},
+            {"top": "39%", "left": "34%", "label": "Bails"},
             {"top": "53%", "left": "63%", "label": "Pitch"},
             {"top": "62%", "left": "66%", "label": "Crease line"},
             {"top": "17%", "left": "65%", "label": "Infield Boundary"}

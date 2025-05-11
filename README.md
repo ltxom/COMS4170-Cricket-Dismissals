@@ -1,23 +1,64 @@
 # COMS4170-Cricket-Dismissals
 
-1. **Install Flask**  
-   Make sure Python is installed. Then open a terminal and run:  
-   `pip install flask`
+## Prerequisites
 
-2. **Download the Project**  
-   Download or clone `COMS4170-Cricket-Dismissals` from https://github.com/ltxom/COMS4170-Cricket-Dismissals.git
+Ensure you have Python installed (version 3.7 or higher is recommended).
 
-3. **Navigate to the Project Folder**  
-   Open a terminal and go into the `COMS4170-Cricket-Dismissals` folder
+## Installation
 
-4. **Run the Flask Server**  
-   Run the server using:  
-   `python server.py`  
-   Or, if required:  
-   `python3 server.py`
+1. **Clone the repository** (if not already done):
 
-5. **Open the App**  
-   In your browser, go to:  
-   [http://127.0.0.1:5001/](http://127.0.0.1:5001/)
+```bash
+git clone https://github.com/ltxom/COMS4170-Cricket-Dismissals.git
+cd COMS4170-Cricket-Dismissals
+```
 
-The application should now be running locally.
+2. **Create a virtual environment (recommended)**:
+
+```bash
+python -m venv venv
+```
+
+Activate the virtual environment:
+
+* On Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+* On macOS/Linux:
+
+```bash
+source venv/bin/activate
+```
+
+3. **Install Flask**:
+
+```bash
+pip install Flask
+```
+
+## Running the Server
+
+Run the Flask server using the following command:
+
+```bash
+python server.py
+```
+
+By default, the server runs at `http://127.0.0.1:5000`.
+
+## Testing
+
+Open a browser and navigate to:
+
+```plaintext
+http://127.0.0.1:5000
+```
+
+You should see your Flask application running.
+
+## Stopping the Server
+
+Press `Ctrl+C` in the terminal to stop the server.

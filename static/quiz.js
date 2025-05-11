@@ -1,7 +1,7 @@
-function addDismissal(dismissal, index, quizIndex) {
+function addDismissal(dismissal) {
     let row = $("<div class='row'></div>");
 
-    let numberCol = $("<div class='quiz-number'></div>").text(`${quizIndex + 1}.${index + 1}`);
+    let numberCol = $("<div class='quiz-number'></div>");
     let dismissalElement = $("<div class='dismissal'></div>").text(dismissal);
 
     dismissalElement.data("originalParent", "#quiz-dismissals");
@@ -21,7 +21,7 @@ function addDismissal(dismissal, index, quizIndex) {
 }
 
 
-function addDescriptor(descriptor, type) {
+function addDescriptor(descriptor, type, index, quizIndex) {
     let row = $("<div class='row'></div>");
 
     let col1 = $("<div class='col-6 droppable-area'></div>");
@@ -34,8 +34,18 @@ function addDescriptor(descriptor, type) {
         descriptor_class = $("<div class='descriptor'></div>").text(descriptor);
         $('#instruction').text("Drag the dismissal to it's matching descriptor")
     }
-
+    title_row = $("<div class='title-row fw-bold'></div>");
+    title_row.append($("<div class='title'>Descriptor</div>"));
+    title_row.text(`Question ${quizIndex + 1}.${index + 1}`)
+    col2.append(title_row);
     col2.append(descriptor_class);
+
+    title_row = $("<div class='row title-row'></div>");
+    
+    descriptor_row = $("<div class='row'></div>");
+    //descriptor_row.append(descriptor_class);
+    //
+    //col2.append(descriptor_row);
 
     // Make col1 a droppable area
     col1.droppable({
@@ -71,11 +81,11 @@ function addDescriptor(descriptor, type) {
 
 function populate_quiz_page(content, quizIndex) {
     content.dismissals.forEach(function(dismissal, i) {
-        addDismissal(dismissal, i, quizIndex);
+        addDismissal(dismissal);
     });
 
     content.descriptors.forEach(function(descriptor, i) {
-        addDescriptor(descriptor, content.descriptor_type);
+        addDescriptor(descriptor, content.descriptor_type, i, quizIndex);
     });
 }
 

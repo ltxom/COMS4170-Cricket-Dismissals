@@ -1,53 +1,40 @@
-{"timestamp": "2025-05-06T20:47:14.656779", "page": "Home", "action": "Page Enter"}
-{"timestamp": "2025-05-06T20:47:15.762137", "page": "Bowled", "action": "Page Enter"}
-{"timestamp": "2025-05-06T20:47:17.063510", "page": "LBW (1 of 2)", "action": "Page Enter"}
-{"timestamp": "2025-05-06T20:47:18.410230", "page": "LBW (2 of 2)", "action": "Page Enter"}
-{"timestamp": "2025-05-06T20:47:29.338850", "page": "Caught", "action": "Page Enter"}
-{"timestamp": "2025-05-06T20:47:29.912795", "page": "LBW (1 of 2)", "action": "Page Enter"}
-{"timestamp": "2025-05-06T20:47:31.196304", "page": "LBW (2 of 2)", "action": "Page Enter"}
-{"timestamp": "2025-05-06T20:47:36.983918", "page": "Home", "action": "Page Enter"}
-{"timestamp": "2025-05-06T20:47:38.620853", "page": "Bowled", "action": "Page Enter"}
-{"timestamp": "2025-05-06T20:47:40.598411", "page": "LBW (1 of 2)", "action": "Page Enter"}
-{"timestamp": "2025-05-06T20:47:41.738882", "page": "LBW (2 of 2)", "action": "Page Enter"}
-{"timestamp": "2025-05-09T18:55:41.834527", "page": "Home", "action": "Page Enter"}
-{"timestamp": "2025-05-09T18:55:43.511421", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T18:56:04.166852", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T18:56:23.209515", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T18:56:29.588177", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T18:56:44.869040", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T18:56:51.327236", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T18:57:01.041019", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T18:57:18.027092", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T18:57:22.791827", "page": "Home", "action": "Page Enter"}
-{"timestamp": "2025-05-09T18:57:24.373055", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T18:58:02.542916", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T18:58:24.970324", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T18:58:33.658363", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:04:02.442288", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:04:05.119931", "page": "Bowled", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:04:06.595518", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:04:19.595240", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:06:28.940330", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:06:37.898136", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:07:14.942867", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:07:20.421556", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:07:46.710865", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:08:09.264525", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:08:14.295066", "page": "Home", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:08:17.465979", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:08:40.931034", "page": "Bowled", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:08:46.148775", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:08:50.660511", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:08:56.012065", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:08:59.052756", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:09:01.000631", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:09:42.172566", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:10:24.721179", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:10:39.554156", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:12:10.941747", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:12:12.644890", "page": "Home", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:12:14.000330", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:12:30.341248", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:13:25.572059", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:13:54.811873", "page": "Overview", "action": "Page Enter"}
-{"timestamp": "2025-05-09T19:13:55.673410", "page": "Bowled", "action": "Page Enter"}
+{"timestamp": "2025-05-10T15:39:25.253788", "page": "Home", "action": "Page Enter"}
+{"timestamp": "2025-05-10T15:39:32.046618", "page": "Home", "action": "Page Enter"}
+{"timestamp": "2025-05-10T15:39:37.742454", "page": "Overview", "action": "Page Enter"}
+{"timestamp": "2025-05-10T15:39:56.279766", "page": "Bowled", "action": "Page Enter"}
+{"timestamp": "2025-05-10T15:40:00.945611", "page": "Bowled", "action": "Page Enter"}
+{"timestamp": "2025-05-10T15:40:02.594895", "page": "Bowled", "action": "Page Enter"}
+{"timestamp": "2025-05-10T15:50:42.440872", "page": "Caught", "action": "Page Enter"}
+{"timestamp": "2025-05-10T15:50:47.240367", "page": "LBW (1 of 2)", "action": "Page Enter"}
+{"timestamp": "2025-05-10T15:50:48.740629", "page": "LBW (2 of 2)", "action": "Page Enter"}
+{"timestamp": "2025-05-10T15:50:58.921589", "page": "Run Out (1 of 2)", "action": "Page Enter"}
+{"timestamp": "2025-05-10T15:51:01.485836", "page": "Run Out (2 of 2)", "action": "Page Enter"}
+{"timestamp": "2025-05-10T15:51:03.079828", "page": "Stumped", "action": "Page Enter"}
+{"timestamp": "2025-05-10T15:51:05.534782", "page": "Retired Out", "action": "Page Enter"}
+{"timestamp": "2025-05-10T15:51:06.993487", "page": "Double Hit / Hit the Ball Twice", "action": "Page Enter"}
+{"timestamp": "2025-05-10T15:51:08.245051", "page": "Hit Wicket", "action": "Page Enter"}
+{"timestamp": "2025-05-10T15:51:09.170319", "page": "Obstructing the Field", "action": "Page Enter"}
+{"timestamp": "2025-05-10T15:51:10.998126", "page": "Timed Out", "action": "Page Enter"}
+{"timestamp": "2025-05-10T15:51:13.450360", "page": "Start Quiz", "action": "Page Enter"}
+{"timestamp": "2025-05-10T15:51:25.189042", "page": "Bowled", "action": "Page Enter"}
+{"timestamp": "2025-05-10T15:51:28.033031", "page": "LBW (1 of 2)", "action": "Page Enter"}
+{"timestamp": "2025-05-10T15:51:30.156976", "page": "Bowled", "action": "Page Enter"}
+{"timestamp": "2025-05-10T15:51:35.479913", "page": "Caught", "action": "Page Enter"}
+{"timestamp": "2025-05-10T15:51:39.281515", "page": "Bowled", "action": "Page Enter"}
+{"timestamp": "2025-05-10T16:33:32.945074", "page": "Bowled", "action": "Page Enter"}
+{"timestamp": "2025-05-10T16:33:36.220800", "page": "Bowled", "action": "Page Enter"}
+{"timestamp": "2025-05-10T16:33:38.562528", "page": "Caught", "action": "Page Enter"}
+{"timestamp": "2025-05-10T16:33:41.327669", "page": "LBW (1 of 2)", "action": "Page Enter"}
+{"timestamp": "2025-05-10T16:33:42.774599", "page": "LBW (2 of 2)", "action": "Page Enter"}
+{"timestamp": "2025-05-10T16:33:47.966741", "page": "Run Out (1 of 2)", "action": "Page Enter"}
+{"timestamp": "2025-05-10T16:33:49.773012", "page": "Run Out (2 of 2)", "action": "Page Enter"}
+{"timestamp": "2025-05-10T16:33:56.440273", "page": "Stumped", "action": "Page Enter"}
+{"timestamp": "2025-05-10T16:33:57.633611", "page": "Retired Out", "action": "Page Enter"}
+{"timestamp": "2025-05-10T16:33:58.755058", "page": "Double Hit / Hit the Ball Twice", "action": "Page Enter"}
+{"timestamp": "2025-05-10T16:33:59.807337", "page": "Hit Wicket", "action": "Page Enter"}
+{"timestamp": "2025-05-10T16:34:00.566742", "page": "Obstructing the Field", "action": "Page Enter"}
+{"timestamp": "2025-05-10T16:34:02.061795", "page": "Timed Out", "action": "Page Enter"}
+{"timestamp": "2025-05-10T16:34:03.515022", "page": "Start Quiz", "action": "Page Enter"}
+{"timestamp": "2025-05-10T16:34:08.465849", "page": "Home", "action": "Page Enter"}
+{"timestamp": "2025-05-10T16:34:09.763391", "page": "Overview", "action": "Page Enter"}
+{"timestamp": "2025-05-10T16:34:27.128549", "page": "Bowled", "action": "Page Enter"}

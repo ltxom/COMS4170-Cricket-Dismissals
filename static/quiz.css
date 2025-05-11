@@ -342,3 +342,7 @@
 .quiz-number{
     padding: 15px;
 }
+
+.fw-bold{
+    font-weight: 700!important;
+}

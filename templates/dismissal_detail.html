@@ -62,7 +62,7 @@
     }
     #lbw-zone {
         position: absolute;
-        top: 28%;
+        top: 32%;
         left: 50%;
         width: 6.5%;
         height: 17%;
@@ -117,7 +117,7 @@
         color: #2980b9;
     }
     .dismissalName {
-        padding-left: 30px;
+        text-align: center;
         font-family: 'Poppins', sans-serif;
 
 
@@ -155,7 +155,7 @@
         <div class="dismissalSlider">
             <h1 class="dismissalName darkGrey">{{ dismissal.display_name }}</h1>
 
-            <div class="slide">
+            <div class="slide-dismissal">
                 <div class="field-container" id="field-container">
                     {% if 'iframe' in dismissal.media %}
                         {{ dismissal.media | safe }}

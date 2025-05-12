@@ -27,13 +27,23 @@
     padding: 20px;
     position: relative;
 }
+.slide-dismissal {
+    min-width: 100%;
+    padding: 20px;
+    position: relative;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
 
 .slide img {
     width: 100%;
     border-radius: 12px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
-
+.slide-dismissal img {
+    width: 100%;
+    border-radius: 12px;
+}
 .field-container {
     position: relative;
     width: 100%;
@@ -167,7 +177,7 @@
 
 .descriptionImage {
 text-align: center;
-font-size: 1rem;
+font-size: 1.2rem;
 }
 
 .nav-buttons button:disabled {
@@ -229,7 +239,7 @@ font-size: 1.3rem;
 
 .dismissal-page .field-container {
     padding: 0.5rem;
-    max-height: 65vh;
+    max-height: 50vh;
 }
 
 .dismissal-page .overviewHeader {
@@ -238,8 +248,7 @@ font-size: 1.3rem;
     margin-bottom: 20px;
 }
 
-.dismissal-page .slide img {
+.dismissal-page .slide-dismissal img {
     width: 100%;
-    max-height: 50vh;
     object-fit: contain;
 }

@@ -47,14 +47,14 @@ Run the Flask server using the following command:
 python server.py
 ```
 
-By default, the server runs at `http://127.0.0.1:5000`.
+By default, the server runs at `http://127.0.0.1:5001`.
 
 ## Testing
 
 Open a browser and navigate to:
 
 ```plaintext
-http://127.0.0.1:5000
+http://127.0.0.1:5001
 ```
 
 You should see your Flask application running.
